@@ -7,3 +7,16 @@ body,
   background: #070a0d; /* keep in sync with src/theme/palette.ts */
   overflow: hidden;
 }
+
+/* Text for screen readers only (3D text and typed subtitles are mirrored here). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

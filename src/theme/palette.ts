@@ -6,4 +6,5 @@ export const palette = {
   uki: '#bfe3ec', // guide Üki, ice-blue
   ghost: '#f0b968', // animal ghosts, warm amber
   stone: '#59636a', // statues, grey stone
+  lamp: '#ffe6c2', // warm-white ceiling spots (requested explicitly for the case lamps)
 } as const

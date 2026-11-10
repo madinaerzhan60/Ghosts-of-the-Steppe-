@@ -1,0 +1,26 @@
+{
+  "whisper": {
+    "text": "They sleep in stone. Only you can wake them."
+  },
+  "welcome": [
+    {
+      "id": "wind",
+      "text": "Quiet... Do you hear it? That is the steppe wind. It remembers everyone who lived here."
+    },
+    {
+      "id": "name",
+      "text": "My name is Üki. In the steppe, an owl feather was hung above a cradle to keep the child safe. I still keep watch — not over children, but over memory.",
+      "source": "https://astanatimes.com/2023/07/kazakh-amulets-guardians-of-luck-blessings-and-ancient-traditions/"
+    },
+    {
+      "id": "doors",
+      "text": "Behind these doors sleep those the steppe has lost, or almost lost. They turned to stone. Touch the glass, and they will remember. Follow me — and speak softly."
+    }
+  ],
+  "case": {
+    "text": "This one has turned to stone. Touch the glass to remember it."
+  },
+  "end": {
+    "text": "The light ahead is waiting for those we remember."
+  }
+}

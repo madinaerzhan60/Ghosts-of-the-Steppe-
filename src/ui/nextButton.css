@@ -1,0 +1,33 @@
+.next-button {
+  position: fixed;
+  right: max(2vw, 14px);
+  bottom: max(4vh, 18px);
+  z-index: 20;
+  min-height: 44px; /* comfortable touch target */
+  padding: 0 18px;
+  border: 1px solid color-mix(in srgb, var(--color-fog) 35%, transparent);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--color-background) 60%, transparent);
+  color: var(--color-fog);
+  font-family: 'PT Mono', ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+.next-button:hover,
+.next-button:focus-visible {
+  opacity: 1;
+}
+
+.next-button:focus-visible {
+  outline: 2px solid var(--color-uki);
+  outline-offset: 3px;
+}
+
+.next-button.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}

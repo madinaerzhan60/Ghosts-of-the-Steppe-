@@ -1,0 +1,41 @@
+[
+  {
+    "id": "turan-tiger",
+    "name": { "en": "Turan tiger", "ru": "Туранский тигр" },
+    "state": "returning",
+    "caseIndex": 0,
+    "facts": [
+      {
+        "year": 1948,
+        "text": {
+          "en": "The last Turan tiger in Kazakhstan was killed (official data).",
+          "ru": "Убит последний туранский тигр в Казахстане (официальные данные)."
+        },
+        "source": "https://www.intellinews.com/kazakhstan-launches-programme-to-reintroduce-tigers-to-lost-habitat-346533"
+      },
+      {
+        "year": 2018,
+        "text": {
+          "en": "Ile-Balkhash State Nature Reserve was created.",
+          "ru": "Создан Государственный природный заповедник «Иле-Балхаш»."
+        },
+        "source": "https://conservewildcats.org/?p=23268"
+      },
+      {
+        "year": 2026,
+        "text": {
+          "en": "The tigress Umit was released into the wild — the first wild tiger in Kazakhstan in 70 years.",
+          "ru": "Тигрица Умит выпущена на волю — первый дикий тигр в Казахстане за 70 лет."
+        },
+        "source": "https://conservewildcats.org/?p=23268"
+      }
+    ],
+    "fund": {
+      "name": {
+        "en": "WWF – tiger reintroduction in Ile-Balkhash",
+        "ru": "WWF – возвращение тигра в Иле-Балхаш"
+      },
+      "url": "https://tigers.panda.org/copy_of_home_17042019_0337/our_work/tigerlandscapes_where_we_work/ili_balkhash"
+    }
+  }
+]

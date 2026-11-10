@@ -1,0 +1,75 @@
+.subtitles {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: max(5vh, 24px);
+  display: flex;
+  justify-content: center;
+  padding: 0 24px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.subtitles__line {
+  margin: 0;
+  max-width: 44rem;
+  text-align: center;
+  font-family: 'Golos Text', system-ui, sans-serif;
+  font-size: clamp(16px, 2.1vw, 22px);
+  line-height: 1.45;
+  color: var(--color-uki);
+  /* Readable over any part of the scene without a box */
+  text-shadow:
+    0 0 2px var(--color-background),
+    0 0 12px var(--color-background),
+    0 0 18px var(--color-background);
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+
+.subtitles__line.is-visible {
+  opacity: 1;
+}
+
+/* Letter by letter: each letter fades in softly (layout is reserved, so no reflow). */
+.subtitles__ch {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.subtitles__ch.is-on {
+  opacity: 1;
+}
+
+/* Soft, breathing "continue" mark while a line waits for the visitor */
+.subtitles__more {
+  display: inline-block;
+  margin-left: 0.4em;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.subtitles__more.is-on {
+  animation: subtitles-breathe 2.4s ease-in-out infinite;
+}
+
+@keyframes subtitles-breathe {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subtitles__line,
+  .subtitles__ch {
+    transition-duration: 0.01s;
+  }
+  .subtitles__more.is-on {
+    animation: none;
+    opacity: 0.6;
+  }
+}

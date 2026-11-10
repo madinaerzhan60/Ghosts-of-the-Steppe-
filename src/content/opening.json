@@ -1,0 +1,30 @@
+{
+  "title": {
+    "en": "Ghosts of the Steppe",
+    "ru": "Призраки степи"
+  },
+  "whisper": {
+    "en": "They sleep in stone. Only you can wake them.",
+    "ru": "Они спят в камне. Только ты можешь их разбудить."
+  },
+  "hint": {
+    "en": "scroll to walk",
+    "ru": "прокрути, чтобы идти"
+  },
+  "tap": {
+    "en": "tap to begin",
+    "ru": "нажми, чтобы начать"
+  },
+  "sound": {
+    "on": { "en": "Sound on", "ru": "Звук включён" },
+    "off": { "en": "Sound off", "ru": "Звук выключен" }
+  },
+  "next": {
+    "en": "Next",
+    "ru": "Дальше"
+  },
+  "continue": {
+    "en": "click or scroll to continue",
+    "ru": "нажми или прокрути, чтобы продолжить"
+  }
+}

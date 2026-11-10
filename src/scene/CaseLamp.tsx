@@ -1,51 +1,72 @@
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
-import { Color, type MeshBasicMaterial, type PointLight } from 'three'
+import { useLayoutEffect, useRef } from 'react'
+import { MathUtils, type MeshBasicMaterial, type Object3D, type SpotLight } from 'three'
 import { palette } from '../theme/palette'
+import { LAMP } from './layout'
+import { LightCone } from './LightCone'
+import { nearestCase } from './nearestCase'
 
 type Props = {
-  position: [number, number, number]
+  caseId: string
   /** Different seed per lamp so they don't flicker in sync. */
   seed: number
 }
 
-const BASE_INTENSITY = 16
-const baseColor = new Color(palette.fog)
+const BASE_INTENSITY = 55
 
-/** Dim ceiling lamp with a slight, slow, smooth flicker (no strobing). */
-export function CaseLamp({ position, seed }: Props) {
-  const light = useRef<PointLight>(null)
+/**
+ * Narrow ceiling spot pointing straight down onto the statue, plus its light cone.
+ * The lamp of the case nearest to the visitor flickers gently to invite a click.
+ */
+export function CaseLamp({ caseId, seed }: Props) {
+  const light = useRef<SpotLight>(null)
+  const target = useRef<Object3D>(null)
   const fixture = useRef<MeshBasicMaterial>(null)
+  const level = useRef(1)
+  const attention = useRef(0) // eased 0..1: how much this lamp flickers
 
-  useFrame(({ clock }) => {
+  // The spot aims at an object directly below it.
+  useLayoutEffect(() => {
+    if (light.current && target.current) light.current.target = target.current
+  }, [])
+
+  useFrame(({ clock }, delta) => {
     const t = clock.elapsedTime
-    // Slow waves, all below ~2 Hz, small amplitude.
+    const isNearest = nearestCase.id === caseId
+    // Ease in/out so the flicker fades in and out slowly (no abrupt change).
+    attention.current = MathUtils.damp(attention.current, isNearest ? 1 : 0, 1.5, delta)
+    const a = attention.current
+
+    // Slow waves (all under ~3 Hz), never strobing, never dropping below ~0.8.
     const wobble =
-      0.5 * Math.sin(t * 1.7 + seed) +
-      0.3 * Math.sin(t * 5.3 + seed * 2.1) +
-      0.2 * Math.sin(t * 11.7 + seed * 3.3)
-    // Rare, soft dip lasting a moment.
-    const dip = Math.pow(Math.max(0, Math.sin(t * 0.37 + seed * 1.9)), 40)
-    const k = 1 + 0.06 * wobble - 0.25 * dip
+      0.55 * Math.sin(t * 2.1 + seed) +
+      0.3 * Math.sin(t * 3.7 + seed * 2.1) +
+      0.15 * Math.sin(t * 1.1 + seed * 3.3)
+    const k = 1 + a * 0.12 * wobble + (1 - a) * 0.015 * wobble
+    level.current = k
 
     if (light.current) light.current.intensity = BASE_INTENSITY * k
-    if (fixture.current) fixture.current.color.copy(baseColor).multiplyScalar(1.2 * k)
   })
 
   return (
-    <group position={position}>
-      <mesh position={[0, 0.2, 0]}>
-        <cylinderGeometry args={[0.16, 0.16, 0.06, 20]} />
-        <meshBasicMaterial ref={fixture} color={palette.fog} toneMapped={false} />
+    <group>
+      {/* Simple fixture disc (baseline) */}
+      <mesh position={[0, LAMP.y + 0.2, 0]}>
+        <cylinderGeometry args={[0.1, 0.1, 0.06, 20]} />
+        <meshBasicMaterial ref={fixture} color={palette.lamp} fog={false} />
       </mesh>
-      <pointLight
+      <spotLight
         ref={light}
-        position={[0, 0, 0]}
-        color={palette.fog}
+        position={[0, LAMP.y, 0]}
+        color={palette.lamp}
         intensity={BASE_INTENSITY}
-        distance={7}
+        angle={LAMP.angle}
+        penumbra={LAMP.penumbra}
+        distance={0}
         decay={2}
       />
+      <object3D ref={target} position={[0, LAMP.targetY, 0]} />
+      <LightCone level={level} />
     </group>
   )
 }

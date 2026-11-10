@@ -1,0 +1,61 @@
+.walk-hint {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: max(4.5vh, 22px);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  font-family: 'PT Mono', ui-monospace, monospace;
+  color: var(--color-fog);
+  text-shadow: 0 0 10px var(--color-background);
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.walk-hint.is-visible {
+  opacity: 1;
+}
+
+.walk-hint p {
+  margin: 0;
+}
+
+.walk-hint__main {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  animation: walk-hint-pulse 3.2s ease-in-out infinite;
+}
+
+.walk-hint__sub {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.walk-hint__sub.is-on {
+  opacity: 0.45;
+}
+
+/* Gentle breathing, never a blink */
+@keyframes walk-hint-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walk-hint__main {
+    animation: none;
+    opacity: 0.7;
+  }
+}
