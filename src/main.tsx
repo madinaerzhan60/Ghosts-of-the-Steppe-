@@ -7,6 +7,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { DecisionRoom } from './room/DecisionRoom'
+import { isRoomRoute } from './room/roomRoute'
 import { palette } from './theme/palette'
 
 // Expose the palette as CSS variables (--color-uki, ...) so CSS never hard-codes colours.
@@ -16,6 +18,6 @@ for (const [name, value] of Object.entries(palette)) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    {isRoomRoute() ? <DecisionRoom /> : <App />}
   </StrictMode>,
 )

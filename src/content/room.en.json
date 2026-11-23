@@ -1,0 +1,82 @@
+{
+  "speaker": "Snow leopard",
+  "intro": "Another night. The city is awake below me.",
+  "progress": "Decision {n} of {total}",
+  "continue": "Continue",
+  "decisions": [
+    {
+      "prompt": "A new road up the mountain",
+      "choices": {
+        "A": { "title": "Straight through the gorge", "detail": "Faster for cars" },
+        "B": { "title": "Around the gorge", "detail": "With a wildlife crossing under the road" }
+      },
+      "reaction": {
+        "A": "The road cuts my path in two. I wait, and I do not cross.",
+        "B": "A quiet way under the road. I can still walk to the other side."
+      }
+    },
+    {
+      "prompt": "A new ski resort",
+      "choices": {
+        "A": { "title": "On the leopard's ridge", "detail": "The lifts climb into her territory" },
+        "B": { "title": "The ridge stays protected", "detail": "The resort uses an existing slope" }
+      },
+      "reaction": {
+        "A": "Lights on my ridge. Where do I go now?",
+        "B": "My ridge stays dark and quiet. Thank you."
+      }
+    },
+    {
+      "prompt": "Rangers and camera traps",
+      "choices": {
+        "A": { "title": "Not funded this year", "detail": "The trails stay unwatched" },
+        "B": { "title": "Funded", "detail": "Rangers patrol, cameras watch the trails" }
+      },
+      "reaction": {
+        "A": "The trails are empty. No one is watching over us.",
+        "B": "Footsteps on the trail, and eyes that mean no harm. I feel less alone."
+      }
+    },
+    {
+      "prompt": "A herder loses sheep to a leopard",
+      "choices": {
+        "A": { "title": "Nobody helps", "detail": "The herder takes revenge" },
+        "B": { "title": "The herder gets help", "detail": "Predator-proof corrals and compensation" }
+      },
+      "reaction": {
+        "A": "I understand his anger. I am still afraid of it.",
+        "B": "A strong corral, and a fair answer to his loss. I am not his enemy now."
+      }
+    }
+  ],
+  "ending": {
+    "title": "Your mountains",
+    "slopeHeading": "The slope now",
+    "city": {
+      "label": "City lights",
+      "low": "They stay low, down in the valley.",
+      "mid": "They have crept part of the way up the slope.",
+      "high": "They climb almost to the rock where she sits."
+    },
+    "ibex": {
+      "label": "Ibex",
+      "low": "The high slope is empty.",
+      "mid": "A few graze high above.",
+      "high": "The herd grazes high above."
+    },
+    "leopard": {
+      "label": "Snow leopard",
+      "low": "Her glow is almost gone.",
+      "mid": "She glows softly.",
+      "high": "She glows bright."
+    },
+    "finalLine": { "bright": "I can stay.", "faded": "There is no room left for me." },
+    "hopeful": "The real story is hopeful: Kazakhstan's snow leopards have roughly doubled since the 1990s — because people chose B.",
+    "measuresHeading": "What really protects snow leopards today",
+    "sourceLabel": "Source",
+    "note": "A simplified story, not a scientific prediction.",
+    "tryAgain": "Try again",
+    "keepHere": "Keep it here",
+    "showSummary": "Show summary"
+  }
+}
