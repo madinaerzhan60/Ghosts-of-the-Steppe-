@@ -26,7 +26,7 @@ Other scripts: `npm run build`, `npm run preview`, `npm run lint`, `npm test`.
 | `src/scene` | Museum hall, display cases, camera |
 | `src/sky` | Sky and stars |
 | `src/ui` | Interface and subtitles |
-| `src/room`, `src/rooms` | Snow leopard decision room and its decision logic |
+| `src/room` | Snow leopard decision room and its decision logic |
 | `src/content` | Animals, facts, sources and texts (`en` and `ru`) |
 | `src/theme`, `src/config` | Shared palette and quality settings |
 | `public/models` | `.glb` models (Draco, max 3 MB each) |
