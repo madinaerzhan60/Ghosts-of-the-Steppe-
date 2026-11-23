@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Credits reminder for new models",
+  "description": "When a file is added to public/models, remind to add its row to CREDITS.md.",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": ["public/models/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A new file was added to public/models. Check whether CREDITS.md has a row for it. If not, ask the user for the author and license and add the row. Do not guess either value. Also check that the model is a Draco-compressed .glb of at most 3 MB."
+  }
+}
