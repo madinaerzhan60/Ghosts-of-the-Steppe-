@@ -7,6 +7,7 @@ import { getGlowTexture } from '../opening/glowTexture'
 import { MODELS } from '../scene/models'
 import { fitStatue } from '../scene/statueFit'
 import { palette } from '../theme/palette'
+import { animalColor } from '../content/animalColor'
 import { seededRandom } from '../utils/random'
 import { ghostFragmentShader, ghostVertexShader } from './ghostShaders'
 import { sampleSurface } from './leopardPoints'
@@ -38,7 +39,7 @@ export function CubGhost() {
   const group = useRef<Group>(null)
   const material = useRef<ShaderMaterial>(null)
   const light = useRef<Sprite>(null)
-  const lightColor = useMemo(() => new Color(palette.ghost), [])
+  const lightColor = useMemo(() => new Color(animalColor('snow-leopard')), [])
 
   const data = useMemo(() => {
     // Built facing +x; the group turns him.
@@ -68,7 +69,7 @@ export function CubGhost() {
       uAppear: { value: 0 },
       uSizeK: { value: 0.85 },
       uStone: { value: new Color(palette.stone) },
-      uAmber: { value: new Color(palette.ghost) },
+      uGlow: { value: new Color(animalColor('snow-leopard')) },
     }),
     [],
   )

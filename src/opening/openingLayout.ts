@@ -62,8 +62,8 @@ const MOON_AZ = MathUtils.degToRad(6) // to the right
 export const SKY = {
   moonDir: new Vector3(Math.sin(MOON_AZ) * Math.cos(MOON_EL), Math.sin(MOON_EL), -Math.cos(MOON_AZ) * Math.cos(MOON_EL)),
   moonDistance: 50,
-  /** Radius in metres at moonDistance (~4.5° across). */
-  moonRadius: 50 * Math.tan(MathUtils.degToRad(4.5)),
+  /** Radius in metres at moonDistance (~6.5° across). */
+  moonRadius: 50 * Math.tan(MathUtils.degToRad(6.5)),
 } as const
 
 /** Small oil lanterns along the path (x, z on the ground), alternating sides. */

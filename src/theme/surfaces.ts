@@ -1,19 +1,21 @@
 import { Color } from 'three'
 import { palette } from './palette'
 
-// Dark architectural surfaces, derived from the palette (no new hues):
-// the hall stays dark so lit exhibits are the brightest things in the scene.
-function mix(amount: number): string {
-  return `#${new Color(palette.background).lerp(new Color(palette.stone), amount).getHexString()}`
+// Architectural surfaces, derived from the palette (no new hues): deep blue,
+// never black, so the lit exhibits still stand out from them.
+function mix(from: string, to: string, amount: number): string {
+  return `#${new Color(from).lerp(new Color(to), amount).getHexString()}`
 }
 
 export const surfaces = {
-  wall: mix(0.36),
-  floor: mix(0.22),
-  pedestal: mix(0.55),
-  /** Old stone of the museum's outside walls. */
-  exterior: mix(0.5),
-  /** Steppe ground and the path to the doors. */
-  ground: mix(0.12),
-  path: mix(0.2),
+  /** Hall walls: deep blue. */
+  wall: mix(palette.ridgeNear, palette.ridgeFar, 0.2),
+  /** Hall floor: dark blue, glossy enough to carry colored light. */
+  floor: mix(palette.background, palette.ridgeNear, 0.7),
+  pedestal: mix(palette.ridgeNear, palette.stone, 0.4),
+  /** Old stone of the museum's outside walls, bluish in the moonlight. */
+  exterior: mix(palette.ridgeNear, palette.ridgeFar, 0.55),
+  /** Steppe ground and the path to the doors: dark teal-blue earth. */
+  ground: mix(palette.ridgeNear, palette.fog, 0.2),
+  path: mix(palette.ridgeNear, palette.stone, 0.35),
 } as const

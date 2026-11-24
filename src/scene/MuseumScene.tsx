@@ -13,9 +13,9 @@ import { Moonlight } from './Moonlight'
 import { CASES } from './layout'
 import './models' // starts preloading the GLB files
 
-// Fog is the background tinted a little toward the cold fog color,
-// so the far end dissolves into a faint cold haze instead of a flat black.
-const fogColor = new Color(palette.background).lerp(new Color(palette.fog), 0.1)
+// Fog is the shadow blue tinted toward the teal fog, so the far end dissolves
+// into a soft blue-teal haze instead of black.
+const fogColor = new Color(palette.background).lerp(new Color(palette.fog), 0.16)
 
 function logCase(id: string) {
   // Awakening effect comes later.
@@ -36,8 +36,8 @@ export function MuseumScene({ ukiSpeaking, ukiAudio, onUkiArrive, ukiWingsOpen, 
   return (
     <>
       <color attach="background" args={[palette.background]} />
-      <fogExp2 attach="fog" args={[fogColor, 0.034]} />
-      <ambientLight color={palette.fog} intensity={0.1} />
+      <fogExp2 attach="fog" args={[fogColor, 0.03]} />
+      <ambientLight color={palette.ridgeFar} intensity={0.2} />
       <Moonlight />
       <AtmosphereByPlace />
 

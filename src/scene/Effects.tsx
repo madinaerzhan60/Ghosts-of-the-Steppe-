@@ -13,9 +13,9 @@ const EXPOSURE = 1.3
 export function Effects() {
   const exposure = useMemo(() => new ExposureEffect({ exposure: EXPOSURE }), [])
   useEffect(() => () => exposure.dispose(), [exposure])
-  // Deep night blue: the palette's cold fog, deepened (no new hue).
+  // Blue-violet shadows (from the palette): darks lean violet-blue, never grey or black.
   const grade = useMemo(
-    () => new ColorGradeEffect({ night: new Color(palette.fog).lerp(new Color(palette.background), 0.35) }),
+    () => new ColorGradeEffect({ night: new Color(palette.skyMid).lerp(new Color(palette.background), 0.45) }),
     [],
   )
   useEffect(() => () => grade.dispose(), [grade])
@@ -35,7 +35,7 @@ export function Effects() {
         luminanceThreshold={0.8}
         luminanceSmoothing={0.2}
       />
-      <Vignette offset={0.25} darkness={0.75} />
+      <Vignette offset={0.3} darkness={0.55} />
       <primitive object={exposure} />
       <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       <primitive object={grade} />

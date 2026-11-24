@@ -6,6 +6,7 @@ import { LEOPARD_POINTS, REDUCED_MOTION } from '../config/quality'
 import { MODELS } from '../scene/models'
 import { fitStatue } from '../scene/statueFit'
 import { palette } from '../theme/palette'
+import { animalColor } from '../content/animalColor'
 import { seededRandom } from '../utils/random'
 import { sampleSurface } from './leopardPoints'
 import { ghostFragmentShader, ghostVertexShader } from './ghostShaders'
@@ -54,7 +55,7 @@ export function LeopardGhost() {
       uAppear: { value: 1 },
       uSizeK: { value: 1 },
       uStone: { value: new Color(palette.stone) },
-      uAmber: { value: new Color(palette.ghost) },
+      uGlow: { value: new Color(animalColor('snow-leopard')) },
     }),
     [],
   )

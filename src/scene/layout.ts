@@ -17,6 +17,8 @@ export type CaseDef = {
   z: number
   /** Animal statue shown in this case. */
   model: ModelId
+  /** Animal id in animals.json (its glow color lights the floor in front of the case). */
+  animal: string
 }
 
 /** Ceiling spot above each case (coordinates local to the case group). */
@@ -35,10 +37,10 @@ const CASE_X = 2.0
 
 // Staggered left/right so the visitor passes one case at a time.
 export const CASES: readonly CaseDef[] = [
-  { id: 'case-1', side: -1, x: -CASE_X, z: -8, model: 'tiger' },
-  { id: 'case-2', side: 1, x: CASE_X, z: -13, model: 'cheetah' },
-  { id: 'case-3', side: -1, x: -CASE_X, z: -18, model: 'snow-leopard' },
-  { id: 'case-4', side: 1, x: CASE_X, z: -23, model: 'horse' },
-  { id: 'case-5', side: -1, x: -CASE_X, z: -28, model: 'seal' },
-  { id: 'case-6', side: 1, x: CASE_X, z: -33, model: 'saiga' },
+  { id: 'case-1', side: -1, x: -CASE_X, z: -8, model: 'tiger', animal: 'turan-tiger' },
+  { id: 'case-2', side: 1, x: CASE_X, z: -13, model: 'cheetah', animal: 'cheetah' },
+  { id: 'case-3', side: -1, x: -CASE_X, z: -18, model: 'snow-leopard', animal: 'snow-leopard' },
+  { id: 'case-4', side: 1, x: CASE_X, z: -23, model: 'horse', animal: 'przewalski-horse' },
+  { id: 'case-5', side: -1, x: -CASE_X, z: -28, model: 'seal', animal: 'caspian-seal' },
+  { id: 'case-6', side: 1, x: CASE_X, z: -33, model: 'saiga', animal: 'saiga' },
 ]

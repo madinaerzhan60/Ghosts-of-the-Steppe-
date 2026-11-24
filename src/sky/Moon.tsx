@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { AdditiveBlending, Color } from 'three'
+import type { Vector3 } from 'three'
 import { SKY } from '../opening/openingLayout'
 import { palette } from '../theme/palette'
 import { facingOrigin } from './facing'
@@ -41,32 +42,32 @@ const haloFragment = /* glsl */ `
   void main() {
     float r = length(vUv * 2.0 - 1.0);
     float k = max(r - uInner, 0.0) / max(1.0 - uInner, 1e-3);
-    float a = exp(-k * 5.0) * (1.0 - smoothstep(0.85, 1.0, r)) * 0.42;
+    float a = exp(-k * 4.0) * (1.0 - smoothstep(0.85, 1.0, r)) * 0.4;
     a = clamp(a, 0.0, 1.0);
     if (a < 0.002) discard;
     gl_FragColor = vec4(clamp(uColor, 0.0, 1.0), a);
   }
 `
 
-const HALO_SCALE = 4.2
+const HALO_SCALE = 5
 
 /** A big low moon behind the museum, with a soft halo. Lives inside SkyDome. */
-export function Moon() {
+export function Moon({ direction = SKY.moonDir, scale = 1 }: { direction?: Vector3; scale?: number }) {
   const { position, quaternion, uniforms, halo } = useMemo(() => {
-    const position = SKY.moonDir.clone().multiplyScalar(SKY.moonDistance)
+    const position = direction.clone().multiplyScalar(SKY.moonDistance)
     return {
       position,
       quaternion: facingOrigin(position),
-      uniforms: { uColor: { value: new Color(palette.uki).multiplyScalar(0.92) } },
+      uniforms: { uColor: { value: new Color(palette.moon).multiplyScalar(0.9) } },
       halo: {
-        uColor: { value: new Color(palette.fog) },
+        uColor: { value: new Color(palette.moon) },
         uInner: { value: 1 / HALO_SCALE },
       },
     }
-  }, [])
+  }, [direction])
 
   return (
-    <group position={position} quaternion={quaternion}>
+    <group position={position} quaternion={quaternion} scale={scale}>
       <mesh renderOrder={-0.8}>
         <planeGeometry args={[SKY.moonRadius * 2, SKY.moonRadius * 2]} />
         <shaderMaterial

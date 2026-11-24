@@ -33,6 +33,8 @@ export interface Animal {
   name: LocalizedText;
   state: AnimalState;
   caseIndex: number;
+  /** The animal's own glow color (#rrggbb): ghost particles, subtitles, plaque, floor light. */
+  color: string;
   facts: Fact[];
   /** Optional until a fund is chosen for the animal. */
   fund?: Fund;

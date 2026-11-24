@@ -37,7 +37,7 @@ const fragmentShader = /* glsl */ `
     float r = length(gl_PointCoord - vec2(0.5));
     float a = (1.0 - smoothstep(0.0, 0.5, r)) * vAlpha;
     if (a < 0.003) discard;
-    gl_FragColor = vec4(uColor * 1.6, a);
+    gl_FragColor = vec4(uColor * 1.5, a);
   }
 `
 
@@ -71,7 +71,7 @@ export function CityLights() {
       uCity: { value: 0.5 },
       uScale: { value: 500 },
       uTwinkle: { value: REDUCED_MOTION ? 0 : 1 },
-      uColor: { value: new Color(palette.lamp) },
+      uColor: { value: new Color(palette.city) },
     }),
     [],
   )

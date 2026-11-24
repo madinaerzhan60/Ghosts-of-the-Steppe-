@@ -13,7 +13,7 @@ export const ghostVertexShader = /* glsl */ `
   uniform float uAppear;
   uniform float uSizeK;
   uniform vec3 uStone;
-  uniform vec3 uAmber;
+  uniform vec3 uGlow;
   varying float vAlpha;
   varying vec3 vColor;
   void main() {
@@ -37,7 +37,7 @@ export const ghostVertexShader = /* glsl */ `
     float twinkle = 0.8 + 0.2 * sin(uTime * (0.7 + aSeed.x) + aSeed.x * 50.0) * uBreathe;
     float gone = 1.0 - smoothstep(0.55, 1.0, uDrift * 1.3 + aSeed.y * 0.3 - 0.15);
     vAlpha = present * mix(0.22, 0.85, uBright) * twinkle * gone * uAppear;
-    vColor = mix(uStone, uAmber * (1.0 + 0.6 * uBright), smoothstep(0.05, 0.5, uBright));
+    vColor = mix(uStone, uGlow * (1.0 + 0.6 * uBright), smoothstep(0.05, 0.5, uBright));
   }
 `
 

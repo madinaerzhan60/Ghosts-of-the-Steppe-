@@ -2,6 +2,7 @@ import { Suspense, useCallback, useMemo, useState } from 'react'
 import { LIGHT_MODE } from '../config/quality'
 import { surfaces } from '../theme/surfaces'
 import { AnimalStatue } from './AnimalStatue'
+import { CaseFloorGlow } from './CaseFloorGlow'
 import { CaseGlass } from './CaseGlass'
 import { CaseLamp } from './CaseLamp'
 import { Dust } from './Dust'
@@ -97,7 +98,7 @@ export function DisplayCase({ def, onSelect }: Props) {
         {/* Pedestal */}
         <mesh position={[0, PEDESTAL_H / 2, 0]}>
           <boxGeometry args={[pedestalW, PEDESTAL_H, pedestalW]} />
-          <meshStandardMaterial color={surfaces.pedestal} roughness={0.8} />
+          <meshStandardMaterial color={surfaces.pedestal} emissive={surfaces.pedestal} emissiveIntensity={0.3} roughness={0.8} />
         </mesh>
 
         {/* Statue, standing on the case floor */}
@@ -119,6 +120,8 @@ export function DisplayCase({ def, onSelect }: Props) {
 
         <CaseGlass position={[0, PEDESTAL_H + glass.h / 2, 0]} width={glass.w} height={glass.h} />
       </group>
+
+      <CaseFloorGlow def={def} />
 
       {/* Ceiling spot directly above the case */}
       <CaseLamp caseId={def.id} seed={def.z} />

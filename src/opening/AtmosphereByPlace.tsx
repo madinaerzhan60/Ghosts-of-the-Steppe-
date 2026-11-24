@@ -3,8 +3,8 @@ import { useRef } from 'react'
 import { MathUtils, type FogExp2 } from 'three'
 import { setWindLevel } from '../audio/ambience'
 
-const OUTSIDE_FOG = 0.034
-const INSIDE_FOG = 0.06
+const OUTSIDE_FOG = 0.03
+const INSIDE_FOG = 0.045
 
 /**
  * Lighter fog out on the steppe (so the museum shows through the haze), denser

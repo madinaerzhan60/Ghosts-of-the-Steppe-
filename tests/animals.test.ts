@@ -63,3 +63,17 @@ test("all user-facing text exists in English", () => {
     }
   }
 });
+
+test("every animal has its own glow color, and no two animals share one", () => {
+  const colors = new Set<string>();
+  for (const animal of raw) {
+    assert.match(animal.color, /^#[0-9a-f]{6}$/i, `${animal.id}: bad color`);
+    colors.add(animal.color.toLowerCase());
+  }
+  assert.equal(colors.size, raw.length);
+});
+
+test("the six hall animals are all there, in case order", () => {
+  const ids = [...raw].sort((a, b) => a.caseIndex - b.caseIndex).map((a) => a.id);
+  assert.deepEqual(ids, ["turan-tiger", "cheetah", "snow-leopard", "przewalski-horse", "caspian-seal", "saiga"]);
+});

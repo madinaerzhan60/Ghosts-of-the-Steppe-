@@ -24,7 +24,7 @@ export function LeopardRock() {
   const { x, z } = LAYOUT.rock
   return (
     <mesh geometry={geometry} position={[x, surfaceY(x, z) + 0.25, z]} scale={[2.4, 0.95, 1.7]} rotation={[0, 0.5, 0]}>
-      <meshStandardMaterial color={new Color(palette.stone)} roughness={1} flatShading />
+      <meshStandardMaterial color={new Color(palette.stone).lerp(new Color(palette.ridgeNear), 0.45)} roughness={1} flatShading />
     </mesh>
   )
 }

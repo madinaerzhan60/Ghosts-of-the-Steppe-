@@ -114,7 +114,7 @@ export function TitleParticles({ text, position, width, timeline }: Props) {
       uDissolve: { value: 0 },
       uSize: { value: 0.028 },
       uScale: { value: 400 },
-      uColor: { value: new Color(palette.fog) },
+      uColor: { value: new Color(palette.moon) },
     }),
     [],
   )

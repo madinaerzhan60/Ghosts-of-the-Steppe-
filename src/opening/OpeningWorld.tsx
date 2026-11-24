@@ -3,6 +3,7 @@ import { Moon } from '../sky/Moon'
 import { MoonClouds } from '../sky/MoonClouds'
 import { Mountains } from '../sky/Mountains'
 import { SkyDome } from '../sky/SkyDome'
+import { SkyGradient } from '../sky/SkyGradient'
 import { Fireflies } from './Fireflies'
 import { GroundFog } from './GroundFog'
 import { Lanterns } from './Lanterns'
@@ -27,6 +28,7 @@ export function OpeningWorld() {
         <>
           <Stars />
           <SkyDome>
+            <SkyGradient />
             <Mountains />
             <Moon />
             <MoonClouds />

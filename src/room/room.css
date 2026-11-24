@@ -73,7 +73,7 @@
   font-family: 'Forum', Georgia, serif;
   font-size: clamp(20px, 2.6vw, 28px);
   line-height: 1.35;
-  color: var(--color-ghost);
+  color: var(--animal);
   opacity: 0;
   animation: room-line-in 1.6s ease forwards;
 }
@@ -127,7 +127,7 @@
 }
 
 .room-decision__progress .is-done {
-  background: color-mix(in srgb, var(--color-ghost) 70%, transparent);
+  background: color-mix(in srgb, var(--animal) 70%, transparent);
   border-color: transparent;
 }
 
@@ -142,7 +142,7 @@
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-ghost);
+  color: var(--animal);
 }
 
 .room-decision__prompt {
@@ -176,11 +176,11 @@
   font: inherit;
   color: var(--color-lamp);
   background: color-mix(in srgb, var(--color-background) 72%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-ghost) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--animal) 45%, transparent);
   border-radius: 14px;
   box-shadow:
-    0 0 18px color-mix(in srgb, var(--color-ghost) 22%, transparent),
-    inset 0 0 24px color-mix(in srgb, var(--color-ghost) 8%, transparent);
+    0 0 18px color-mix(in srgb, var(--animal) 22%, transparent),
+    inset 0 0 24px color-mix(in srgb, var(--animal) 8%, transparent);
   backdrop-filter: blur(4px);
   cursor: pointer;
   transition:
@@ -191,11 +191,11 @@
 
 .room-card:hover,
 .room-card:focus-visible {
-  border-color: var(--color-ghost);
+  border-color: var(--animal);
   background: color-mix(in srgb, var(--color-background) 55%, transparent);
   box-shadow:
-    0 0 34px color-mix(in srgb, var(--color-ghost) 45%, transparent),
-    inset 0 0 30px color-mix(in srgb, var(--color-ghost) 14%, transparent);
+    0 0 34px color-mix(in srgb, var(--animal) 45%, transparent),
+    inset 0 0 30px color-mix(in srgb, var(--animal) 14%, transparent);
 }
 
 .room-card:focus-visible {
@@ -207,7 +207,7 @@
   font-family: 'PT Mono', ui-monospace, monospace;
   font-size: 12px;
   letter-spacing: 0.1em;
-  color: var(--color-ghost);
+  color: var(--animal);
 }
 
 .room-card__title {
@@ -264,9 +264,9 @@
   font-size: 15px;
   color: var(--color-lamp);
   background: color-mix(in srgb, var(--color-background) 70%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-ghost) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--animal) 55%, transparent);
   border-radius: 22px;
-  box-shadow: 0 0 16px color-mix(in srgb, var(--color-ghost) 22%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--animal) 22%, transparent);
   cursor: pointer;
   transition:
     box-shadow 0.8s ease,
@@ -275,8 +275,8 @@
 
 .room-button:hover,
 .room-button:focus-visible {
-  border-color: var(--color-ghost);
-  box-shadow: 0 0 28px color-mix(in srgb, var(--color-ghost) 40%, transparent);
+  border-color: var(--animal);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--animal) 40%, transparent);
 }
 
 .room-button:focus-visible {
@@ -298,8 +298,8 @@
 }
 
 .room-button--primary {
-  border-color: var(--color-ghost);
-  box-shadow: 0 0 26px color-mix(in srgb, var(--color-ghost) 38%, transparent);
+  border-color: var(--animal);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--animal) 38%, transparent);
 }
 
 /* Hidden (and not focusable) until its delay is over, then fades in slowly. */
@@ -370,8 +370,8 @@
   margin: 10px 0 0;
   font-family: 'Forum', Georgia, serif;
   font-size: clamp(30px, 4vw, 40px);
-  color: var(--color-ghost);
-  text-shadow: 0 0 22px color-mix(in srgb, var(--color-ghost) 45%, transparent);
+  color: var(--animal);
+  text-shadow: 0 0 22px color-mix(in srgb, var(--animal) 45%, transparent);
 }
 
 .room-ending__sources {

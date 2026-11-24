@@ -6,7 +6,7 @@ import { LAMP } from './layout'
 
 const HEIGHT = LAMP.y - LAMP.coneBottomY
 const RADIUS = Math.tan(LAMP.angle) * HEIGHT
-const BASE_OPACITY = 0.1
+const BASE_OPACITY = 0.14
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;

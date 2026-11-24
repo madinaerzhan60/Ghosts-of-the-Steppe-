@@ -136,16 +136,16 @@ export function Grass() {
   }, [])
 
   const uniforms = useMemo(() => {
-    const bg = new Color(palette.background)
-    const fog = new Color(palette.fog)
+    const root = new Color(palette.ridgeNear)
+    const tipColor = new Color(palette.fog)
     return {
       uTime: { value: 0 },
       uWind: { value: REDUCED_MOTION ? 0.08 : 0.22 },
       uGround: { value: GROUND_Y },
       uWidth: { value: 0.045 },
-      // Grass colours are the palette's night tones (no new hues).
-      uRoot: { value: bg.clone().lerp(fog, 0.05) },
-      uTip: { value: bg.clone().lerp(fog, 0.2) },
+      // Grass colours: deep blue roots, teal-blue tips (palette tones only).
+      uRoot: { value: root.clone().lerp(new Color(palette.background), 0.3) },
+      uTip: { value: root.clone().lerp(tipColor, 0.3) },
       uAmber: { value: new Color(palette.ghost) },
       uLanterns: {
         value: LANTERNS.map(([x, z]) => new Vector4(x, GROUND_Y + LANTERN_HEIGHT + 0.1, z, 1)),

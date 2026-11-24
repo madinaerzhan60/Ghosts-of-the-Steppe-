@@ -3,27 +3,30 @@ import { useMemo, useRef } from 'react'
 import { AdditiveBlending, Color, type Sprite } from 'three'
 import { getGlowTexture } from '../opening/glowTexture'
 import { palette } from '../theme/palette'
-import { epilogueProgress, storyLive } from './storyLive'
+import { roomLive } from './roomLive'
+import { LAYOUT, surfaceY } from './slopeShape'
 
-/** Bright ending: a pale moon rises over the ridge, slowly, while the cub walks away. */
-export function RoomMoon() {
+/** A soft golden haze over the city lights. It grows with the city. */
+export function CityHaze() {
   const sprite = useRef<Sprite>(null)
-  const color = useMemo(() => new Color(palette.fog), [])
+  const color = useMemo(() => new Color(palette.cityHaze), [])
+  const z = LAYOUT.cityBottom - 1
   useFrame(() => {
     const s = sprite.current
     if (!s) return
-    s.material.opacity = storyLive.epilogue === 'bright' ? Math.min(1, epilogueProgress() * 1.2) * 0.9 : 0
+    s.material.opacity = 0.07 + 0.12 * roomLive.city
+    s.scale.set(20 + 6 * roomLive.city, 6 + 3 * roomLive.city, 1)
   })
   return (
-    <sprite ref={sprite} position={[6, 22, -27]} scale={[7, 7, 1]} renderOrder={-1}>
+    <sprite ref={sprite} position={[0, surfaceY(0, z) + 1.2, z]} renderOrder={1}>
       <spriteMaterial
         map={getGlowTexture()}
         color={color}
         transparent
-        opacity={0}
+        opacity={0.2}
         depthWrite={false}
-        fog={false}
         blending={AdditiveBlending}
+        fog={false}
       />
     </sprite>
   )

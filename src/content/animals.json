@@ -1,7 +1,10 @@
 [
   {
     "id": "turan-tiger",
-    "name": { "en": "Turan tiger", "ru": "Туранский тигр" },
+    "name": {
+      "en": "Turan tiger",
+      "ru": "Туранский тигр"
+    },
     "state": "returning",
     "caseIndex": 0,
     "facts": [
@@ -36,7 +39,18 @@
         "ru": "WWF – возвращение тигра в Иле-Балхаш"
       },
       "url": "https://tigers.panda.org/copy_of_home_17042019_0337/our_work/tigerlandscapes_where_we_work/ili_balkhash"
-    }
+    },
+    "color": "#ff8a3d"
+  },
+  {
+    "id": "cheetah",
+    "name": {
+      "en": "Cheetah"
+    },
+    "state": "forgotten",
+    "caseIndex": 1,
+    "facts": [],
+    "color": "#ff9e8a"
   },
   {
     "id": "snow-leopard",
@@ -86,6 +100,37 @@
         "en": "Snow Leopard Trust — Predation Prevention"
       },
       "url": "https://snowleopard.org/our-work/conservation-programs/predation-prevention/"
-    }
+    },
+    "color": "#9fe8ff"
+  },
+  {
+    "id": "przewalski-horse",
+    "name": {
+      "en": "Przewalski's horse"
+    },
+    "state": "forgotten",
+    "caseIndex": 3,
+    "facts": [],
+    "color": "#c9b8ff"
+  },
+  {
+    "id": "caspian-seal",
+    "name": {
+      "en": "Caspian seal"
+    },
+    "state": "forgotten",
+    "caseIndex": 4,
+    "facts": [],
+    "color": "#5ee6d0"
+  },
+  {
+    "id": "saiga",
+    "name": {
+      "en": "Saiga"
+    },
+    "state": "forgotten",
+    "caseIndex": 5,
+    "facts": [],
+    "color": "#ffd166"
   }
 ]

@@ -1,5 +1,7 @@
 import { Canvas } from '@react-three/fiber'
+import type { CSSProperties } from 'react'
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
+import { animalColor } from '../content/animalColor'
 import { LIGHT_MODE } from '../config/quality'
 import { Effects } from '../scene/Effects'
 import { DecisionCards } from './DecisionCards'
@@ -102,7 +104,7 @@ export function DecisionRoom() {
         <Effects />
       </Canvas>
 
-      <div className="room-ui">
+      <div className="room-ui" style={{ '--animal': animalColor('snow-leopard') } as CSSProperties}>
         {flow.phase === 'choosing' && <DecisionCards key={index} index={index} onChoose={choose} />}
 
         {flow.phase !== 'ending' && (
