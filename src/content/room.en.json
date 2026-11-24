@@ -1,82 +1,128 @@
 {
   "speaker": "Snow leopard",
-  "intro": "Another night. The city is awake below me.",
-  "progress": "Decision {n} of {total}",
+  "guide": "Üki",
+  "prologue": [
+    "I was born above the lights of Almaty.",
+    "My mother taught me every trail on this mountain.",
+    "Now I have a cub. This spring, I must teach him."
+  ],
+  "progress": "Season {n} of {total}",
   "continue": "Continue",
   "decisions": [
     {
-      "prompt": "A new road up the mountain",
+      "season": "Spring",
+      "prompt": "The people want a road up the mountain.",
       "choices": {
-        "A": { "title": "Straight through the gorge", "detail": "Faster for cars" },
-        "B": { "title": "Around the gorge", "detail": "With a wildlife crossing under the road" }
+        "A": {
+          "title": "Cut the road straight through the gorge"
+        },
+        "B": {
+          "title": "Build it around — with a tunnel for animals"
+        }
       },
       "reaction": {
-        "A": "The road cuts my path in two. I wait, and I do not cross.",
-        "B": "A quiet way under the road. I can still walk to the other side."
+        "A": [
+          "The trucks come at night. The lights blind us.",
+          "My cub hid behind me. We lost the trail to the high meadows."
+        ],
+        "B": [
+          "They built a tunnel under the road for us.",
+          "My cub crossed it first. He wasn't afraid."
+        ]
       }
     },
     {
-      "prompt": "A new ski resort",
+      "season": "Summer",
+      "prompt": "The people want snow for skiing.",
       "choices": {
-        "A": { "title": "On the leopard's ridge", "detail": "The lifts climb into her territory" },
-        "B": { "title": "The ridge stays protected", "detail": "The resort uses an existing slope" }
+        "A": {
+          "title": "Build the ski resort on her ridge"
+        },
+        "B": {
+          "title": "Keep her ridge wild"
+        }
       },
       "reaction": {
-        "A": "Lights on my ridge. Where do I go now?",
-        "B": "My ridge stays dark and quiet. Thank you."
+        "A": [
+          "They took the ridge where my mother taught me to hunt.",
+          "There is nowhere to teach him now."
+        ],
+        "B": [
+          "They left our ridge alone.",
+          "Today my cub caught his first pika. He was so proud."
+        ]
       }
     },
     {
-      "prompt": "Rangers and camera traps",
+      "season": "Autumn",
+      "prompt": "Men came with guns. They want my fur.",
       "choices": {
-        "A": { "title": "Not funded this year", "detail": "The trails stay unwatched" },
-        "B": { "title": "Funded", "detail": "Rangers patrol, cameras watch the trails" }
+        "A": {
+          "title": "No money for rangers this year"
+        },
+        "B": {
+          "title": "Send rangers and camera traps"
+        }
       },
       "reaction": {
-        "A": "The trails are empty. No one is watching over us.",
-        "B": "Footsteps on the trail, and eyes that mean no harm. I feel less alone."
+        "A": [
+          "No one was watching the trails.",
+          "I heard the shot. I ran with my cub until morning."
+        ],
+        "B": [
+          "Rangers walk the trails now. Cameras watch for us.",
+          "The men saw the cameras and went home."
+        ]
       }
     },
     {
-      "prompt": "A herder loses sheep to a leopard",
+      "season": "Winter",
+      "prompt": "I was hungry. I took a sheep from a herder.",
       "choices": {
-        "A": { "title": "Nobody helps", "detail": "The herder takes revenge" },
-        "B": { "title": "The herder gets help", "detail": "Predator-proof corrals and compensation" }
+        "A": {
+          "title": "Let the herder deal with it"
+        },
+        "B": {
+          "title": "Give him a strong pen and pay for the sheep"
+        }
       },
       "reaction": {
-        "A": "I understand his anger. I am still afraid of it.",
-        "B": "A strong corral, and a fair answer to his loss. I am not his enemy now."
+        "A": [
+          "Now the herder is waiting for me with a gun.",
+          "I can't go down anymore. I can't feed my cub."
+        ],
+        "B": [
+          "The people gave him a strong pen and paid for the sheep.",
+          "He let me pass. Tonight, my cub and I ate."
+        ]
       }
     }
   ],
+  "epilogue": {
+    "bright": [
+      "He is grown now. He walks the trails I taught him.",
+      "One day he will teach his own cub.",
+      "Thank you for letting us stay."
+    ],
+    "middle": [
+      "My cub left to find mountains without lights.",
+      "I hope he finds them.",
+      "I am still here. For now."
+    ],
+    "faded": [
+      "I am tired of hiding.",
+      "If you come here one day, look for our tracks in the snow.",
+      "That is all that's left."
+    ]
+  },
+  "bridge": "That was a story. But the choices are real — and people have already made them.",
   "ending": {
-    "title": "Your mountains",
-    "slopeHeading": "The slope now",
-    "city": {
-      "label": "City lights",
-      "low": "They stay low, down in the valley.",
-      "mid": "They have crept part of the way up the slope.",
-      "high": "They climb almost to the rock where she sits."
-    },
-    "ibex": {
-      "label": "Ibex",
-      "low": "The high slope is empty.",
-      "mid": "A few graze high above.",
-      "high": "The herd grazes high above."
-    },
-    "leopard": {
-      "label": "Snow leopard",
-      "low": "Her glow is almost gone.",
-      "mid": "She glows softly.",
-      "high": "She glows bright."
-    },
-    "finalLine": { "bright": "I can stay.", "faded": "There is no room left for me." },
-    "hopeful": "The real story is hopeful: Kazakhstan's snow leopards have roughly doubled since the 1990s — because people chose B.",
-    "measuresHeading": "What really protects snow leopards today",
+    "title": "What people really did",
     "sourceLabel": "Source",
-    "note": "A simplified story, not a scientific prediction.",
-    "tryAgain": "Try again",
-    "keepHere": "Keep it here",
-    "showSummary": "Show summary"
-  }
+    "choseB": "People chose B.",
+    "keepHere": "Keep her here",
+    "again": "Live her life again",
+    "note": "A simplified story, not a scientific prediction."
+  },
+  "skip": "Skip"
 }

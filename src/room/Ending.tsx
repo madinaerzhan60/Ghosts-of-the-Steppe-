@@ -1,91 +1,74 @@
 import { useEffect, useRef } from 'react'
 import { loadAnimals, loadMeasures } from '../content/loadAnimals'
-import { ending, level, type RoomState } from './decisions'
 import { ROOM_TEXT } from './roomText'
 
 type Props = {
-  state: RoomState
-  onTryAgain: () => void
-  onKeepHere: () => void
+  onAgain: () => void
 }
 
 const E = ROOM_TEXT.ending
+const ANIMAL = loadAnimals().find((a) => a.id === 'snow-leopard')
+const FACT = ANIMAL?.facts[0]
+const FACT_SOURCES = FACT ? [FACT.source, ...(FACT.moreSources ?? [])] : []
 /** TODO placeholders are only visible while developing, so visitors never see them. */
-/** Sources of the "roughly doubled" fact; the hopeful line is shown only if it has them. */
-const HOPE_FACT = loadAnimals().find((a) => a.id === 'snow-leopard')?.facts[0]
-const HOPE_SOURCES = HOPE_FACT ? [HOPE_FACT.source, ...(HOPE_FACT.moreSources ?? [])] : []
 const MEASURES = loadMeasures('snow-leopard', import.meta.env.DEV)
+const FUND_URL = ANIMAL?.fund?.url
 
-/** "Your mountains": a calm summary of the slope, the leopard's last line, and what really helps. */
-export function Ending({ state, onTryAgain, onKeepHere }: Props) {
-  // Move focus to the summary so screen readers start at its title.
+/** "What people really did": the real measures, the real numbers, and what visitors can do. */
+export function Ending({ onAgain }: Props) {
+  // Move focus to the panel so screen readers start at its title.
   const section = useRef<HTMLElement>(null)
   useEffect(() => section.current?.focus({ preventScroll: true }), [])
 
-  const rows = [
-    { label: E.city.label, text: E.city[level(state.city)] },
-    { label: E.ibex.label, text: E.ibex[level(state.ibex)] },
-    { label: E.leopard.label, text: E.leopard[level(state.leopard)] },
-  ]
   return (
     <section ref={section} tabIndex={-1} className="room-ending" aria-labelledby="ending-title">
       <h2 id="ending-title" className="room-ending__title">
         {E.title}
       </h2>
 
-      <h3 className="room-ending__label">{E.slopeHeading}</h3>
-      <dl className="room-ending__slope">
-        {rows.map((row) => (
-          <div key={row.label}>
-            <dt>{row.label}</dt>
-            <dd>{row.text}</dd>
-          </div>
-        ))}
-      </dl>
-
-      <p className="room-ending__final">“{E.finalLine[ending(state)]}”</p>
-
-      {HOPE_SOURCES.length > 0 && (
-        <p className="room-ending__hope">
-          {E.hopeful}{' '}
-          {HOPE_SOURCES.map((url, i) => (
-            <a key={url} href={url} target="_blank" rel="noopener noreferrer">
-              {E.sourceLabel} {i + 1}
-            </a>
-          ))}
-        </p>
-      )}
-
       {MEASURES.length > 0 && (
-        <>
-          <h3 className="room-ending__label">{E.measuresHeading}</h3>
-          <ul className="room-ending__measures">
-            {MEASURES.map((m) => (
-              <li key={m.id}>
-                <span>{m.text.en}</span>
-                {m.source ? (
-                  <a href={m.source} target="_blank" rel="noopener noreferrer">
-                    {E.sourceLabel}
-                  </a>
-                ) : (
-                  <span className="room-ending__todo">TODO source</span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </>
+        <ul className="room-ending__measures">
+          {MEASURES.map((m) => (
+            <li key={m.id}>
+              <span>{m.text.en}</span>
+              {m.source ? (
+                <a href={m.source} target="_blank" rel="noopener noreferrer">
+                  {E.sourceLabel}
+                </a>
+              ) : (
+                <span className="room-ending__todo">TODO source</span>
+              )}
+            </li>
+          ))}
+        </ul>
       )}
 
-      <p className="room-ending__note">{E.note}</p>
+      {FACT && FACT_SOURCES.length > 0 && (
+        <div className="room-ending__hope">
+          <p className="room-ending__fact">{FACT.text.en}</p>
+          <p className="room-ending__chose">{E.choseB}</p>
+          <p className="room-ending__sources">
+            {FACT_SOURCES.map((url, i) => (
+              <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+                {E.sourceLabel} {i + 1}
+              </a>
+            ))}
+          </p>
+        </div>
+      )}
 
       <div className="room-ending__buttons">
-        <button type="button" className="room-button" onClick={onTryAgain}>
-          {E.tryAgain}
-        </button>
-        <button type="button" className="room-button room-button--quiet" onClick={onKeepHere}>
-          {E.keepHere}
+        {FUND_URL && (
+          <a className="room-button room-button--primary" href={FUND_URL} target="_blank" rel="noopener noreferrer">
+            {E.keepHere}
+          </a>
+        )}
+        <button type="button" className="room-button room-button--quiet" onClick={onAgain}>
+          {E.again}
         </button>
       </div>
+
+      <p className="room-ending__note">{E.note}</p>
     </section>
   )
 }

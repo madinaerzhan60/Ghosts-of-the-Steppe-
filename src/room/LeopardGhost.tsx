@@ -8,53 +8,15 @@ import { fitStatue } from '../scene/statueFit'
 import { palette } from '../theme/palette'
 import { seededRandom } from '../utils/random'
 import { sampleSurface } from './leopardPoints'
+import { ghostFragmentShader, ghostVertexShader } from './ghostShaders'
 import { roomLive } from './roomLive'
+import { epilogueProgress, storyLive } from './storyLive'
 import { LAYOUT, surfaceY } from './slopeShape'
 
 /** Top of the rock above the slope, metres (see LeopardRock). */
 const ROCK_TOP = 1.15
 /** Turns the head (+x) toward the city: right and toward the camera. */
 const YAW = -0.95
-
-const vertexShader = /* glsl */ `
-  attribute vec3 aSeed; // x phase, y rank (0..1), z size
-  uniform float uTime;
-  uniform float uBright;
-  uniform float uScale;
-  uniform float uBreathe;
-  uniform vec3 uStone;
-  uniform vec3 uAmber;
-  varying float vAlpha;
-  varying vec3 vColor;
-  void main() {
-    vec3 p = position;
-    // Slow breathing: the chest rises a little.
-    p.y += uBreathe * 0.03 * sin(uTime * 0.9 + aSeed.x * 6.2831) * smoothstep(0.2, 1.2, position.y);
-    vec4 mv = modelViewMatrix * vec4(p, 1.0);
-    gl_Position = projectionMatrix * mv;
-    float depth = max(-mv.z, 0.05);
-    gl_PointSize = clamp(aSeed.z * (0.55 + 0.6 * uBright) * uScale / depth, 1.2, 9.0);
-
-    // State 1 -> 2: faint grey-stone grains become amber, glowing particles as the leopard brightens.
-    // When she fades, the outermost grains go first, but a stone outline stays.
-    float keep = mix(0.4, 1.0, smoothstep(0.0, 0.7, uBright));
-    float present = 1.0 - smoothstep(keep - 0.15, keep, aSeed.y);
-    float twinkle = 0.8 + 0.2 * sin(uTime * (0.7 + aSeed.x) + aSeed.x * 50.0) * uBreathe;
-    vAlpha = present * mix(0.22, 0.85, uBright) * twinkle;
-    vColor = mix(uStone, uAmber * (1.0 + 0.6 * uBright), smoothstep(0.05, 0.5, uBright));
-  }
-`
-
-const fragmentShader = /* glsl */ `
-  varying float vAlpha;
-  varying vec3 vColor;
-  void main() {
-    float r = length(gl_PointCoord - vec2(0.5));
-    float a = (1.0 - smoothstep(0.0, 0.5, r)) * vAlpha;
-    if (a < 0.003) discard;
-    gl_FragColor = vec4(vColor, a);
-  }
-`
 
 /**
  * The snow leopard as a particle ghost, sitting on her rock and facing the city.
@@ -88,6 +50,9 @@ export function LeopardGhost() {
       uBright: { value: 0.5 },
       uScale: { value: 500 },
       uBreathe: { value: REDUCED_MOTION ? 0 : 1 },
+      uDrift: { value: 0 },
+      uAppear: { value: 1 },
+      uSizeK: { value: 1 },
       uStone: { value: new Color(palette.stone) },
       uAmber: { value: new Color(palette.ghost) },
     }),
@@ -99,6 +64,8 @@ export function LeopardGhost() {
     if (!u) return
     u.uTime.value = clock.elapsedTime
     u.uBright.value = roomLive.leopard
+    // In the faded epilogue her particles blow away like snow.
+    u.uDrift.value = storyLive.epilogue === 'faded' ? epilogueProgress() : 0
     u.uScale.value = size.height * 0.62
   })
 
@@ -112,8 +79,8 @@ export function LeopardGhost() {
       <shaderMaterial
         ref={material}
         uniforms={uniforms}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
+        vertexShader={ghostVertexShader}
+        fragmentShader={ghostFragmentShader}
         transparent
         depthWrite={false}
         blending={AdditiveBlending}

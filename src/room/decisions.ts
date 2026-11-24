@@ -64,9 +64,16 @@ export function level(value: number): Level {
   return 'mid'
 }
 
-/** The leopard's last line: bright at one half or more, faded below. */
-export type Ending = 'bright' | 'faded'
+/** Which epilogue the story ends with. */
+export type Epilogue = 'bright' | 'middle' | 'faded'
 
-export function ending(state: RoomState): Ending {
-  return state.leopard >= 0.5 ? 'bright' : 'faded'
+/**
+ * By how many harmful (A) choices were made: 0-1 = bright, 2 = middle, 3-4 = faded.
+ * (Counting choices, not the leopard's brightness, keeps the ending easy to explain.)
+ */
+export function epilogue(choices: readonly Choice[]): Epilogue {
+  const harmful = choices.slice(0, DECISION_COUNT).filter((c) => c === 'A').length
+  if (harmful <= 1) return 'bright'
+  if (harmful === 2) return 'middle'
+  return 'faded'
 }

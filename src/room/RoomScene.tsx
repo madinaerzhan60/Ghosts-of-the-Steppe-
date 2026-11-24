@@ -6,9 +6,12 @@ import { MODELS } from '../scene/models'
 import { palette } from '../theme/palette'
 import type { RoomState } from './decisions'
 import { CityLights } from './CityLights'
+import { CubGhost } from './CubGhost'
+import { Footprints } from './Footprints'
 import { IbexHerd } from './IbexHerd'
 import { LeopardGhost } from './LeopardGhost'
 import { LeopardRock } from './LeopardRock'
+import { RoomMoon } from './RoomMoon'
 import { RoomCamera } from './RoomCamera'
 import { RoomDirector } from './RoomDirector'
 import { SlopeTerrain } from './SlopeTerrain'
@@ -31,9 +34,12 @@ export function RoomScene({ target }: { target: RoomState }) {
       <LeopardRock />
       <CityLights />
       <IbexHerd />
+      <Footprints />
+      <RoomMoon />
       <ModelErrorBoundary url={MODELS['snow-leopard'].url}>
         <Suspense fallback={null}>
           <LeopardGhost />
+          <CubGhost />
         </Suspense>
       </ModelErrorBoundary>
     </>

@@ -42,6 +42,7 @@ export function DecisionCards({ index, onChoose }: Props) {
           <span key={i} className={i < index ? 'is-done' : i === index ? 'is-now' : ''} aria-hidden="true" />
         ))}
       </p>
+      <p className="room-decision__season">{decision.season}</p>
       <h2 id={headingId} className="room-decision__prompt">
         {decision.prompt}
       </h2>
@@ -60,7 +61,7 @@ export function DecisionCards({ index, onChoose }: Props) {
                 {choice}
               </span>
               <span className="room-card__title">{text.title}</span>
-              <span className="room-card__detail">{text.detail}</span>
+              
             </button>
           )
         })}

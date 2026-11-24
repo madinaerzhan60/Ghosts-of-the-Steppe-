@@ -50,7 +50,7 @@
       {
         "year": 1995,
         "text": {
-          "en": "Kazakhstan had only 80–100 snow leopards in 1995. Today there are about 190."
+          "en": "In 1995 there were only 80–100 snow leopards in Kazakhstan. Today there are about 190."
         },
         "source": "https://www.undp.org/kazakhstan/stories/achievements-kazakhstan-conservation-snow-leopard",
         "moreSources": [
@@ -62,21 +62,21 @@
       {
         "id": "protected-areas",
         "text": {
-          "en": "About 70% of Kazakhstan's snow leopards live inside protected areas, and new protected areas are being planned."
+          "en": "Kazakhstan protected the mountains: about 70% of its snow leopards now live in protected areas."
         },
         "source": "https://www.undp.org/kazakhstan/stories/achievements-kazakhstan-conservation-snow-leopard"
       },
       {
         "id": "cameras-collars",
         "text": {
-          "en": "In Ile-Alatau National Park near Almaty, more than 50 camera traps watch the trails, and scientists have fitted snow leopards with GPS collars since 2021."
+          "en": "Near Almaty, more than 50 camera traps watch the trails, and rangers follow leopards with GPS collars."
         },
         "source": "https://24.kz/en/802010-snow-leopard-day-kazakhstan-monitors-around-190-snow-leopards"
       },
       {
         "id": "corrals",
         "text": {
-          "en": "Predator-proof corrals help herders keep their sheep safe, so they have no reason to take revenge on snow leopards. In the Indian Himalayas, partner communities reported up to 90% fewer attacks."
+          "en": "Herders got strong pens. Where this was tried in the Himalayas, attacks dropped by up to 90%."
         },
         "source": "https://snowleopard.org/our-work/conservation-programs/predation-prevention/"
       }

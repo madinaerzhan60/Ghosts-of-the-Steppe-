@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { DECISION_COUNT, decide, ending, level, type Choice, type RoomState } from "../src/room/decisions.ts";
+import { DECISION_COUNT, decide, epilogue, level, type Choice, type RoomState } from "../src/room/decisions.ts";
 import { seededRandom } from "../src/utils/random.ts";
 
 const KEYS: (keyof RoomState)[] = ["leopard", "city", "ibex"];
@@ -97,17 +97,45 @@ test("extra choices beyond the fourth are ignored", () => {
   assert.deepEqual(decide(["B", "A", "B", "A", "B", "B"]), decide(["B", "A", "B", "A"]));
 });
 
-test("level and ending are consistent with the values", () => {
+test("level turns a value into a word", () => {
   assert.equal(level(0), "low");
+  assert.equal(level(0.34), "low");
   assert.equal(level(0.5), "mid");
+  assert.equal(level(0.66), "high");
   assert.equal(level(1), "high");
-  assert.equal(ending(decide(["B", "B", "B", "B"])), "bright");
-  assert.equal(ending(decide(["A", "A", "A", "A"])), "faded");
-  // Brighter leopard never gives a worse ending.
-  const rank = { faded: 0, bright: 1 } as const;
-  for (const x of allChoices()) {
-    for (const y of allChoices()) {
-      if (decide(x).leopard >= decide(y).leopard) assert.ok(rank[ending(decide(x))] >= rank[ending(decide(y))]);
+});
+
+test("epilogue follows the number of harmful (A) choices: 0-1 bright, 2 middle, 3-4 faded", () => {
+  for (const choices of allChoices().filter((c) => c.length === DECISION_COUNT)) {
+    const harmful = choices.filter((c) => c === "A").length;
+    const expected = harmful <= 1 ? "bright" : harmful === 2 ? "middle" : "faded";
+    assert.equal(epilogue(choices), expected, choices.join(""));
+  }
+  assert.equal(epilogue(["B", "B", "B", "B"]), "bright");
+  assert.equal(epilogue(["A", "B", "B", "B"]), "bright");
+  assert.equal(epilogue(["A", "A", "B", "B"]), "middle");
+  assert.equal(epilogue(["A", "A", "A", "B"]), "faded");
+  assert.equal(epilogue(["A", "A", "A", "A"]), "faded");
+});
+
+test("order of the harmful choices does not matter, and extra choices are ignored", () => {
+  assert.equal(epilogue(["A", "B", "B", "A"]), epilogue(["B", "A", "A", "B"]));
+  assert.equal(epilogue(["B", "B", "B", "B", "A", "A"]), "bright");
+});
+
+test("more protective choices never give a worse epilogue, and never a dimmer leopard", () => {
+  const rank = { faded: 0, middle: 1, bright: 2 } as const;
+  const full = allChoices().filter((c) => c.length === DECISION_COUNT);
+  for (const x of full) {
+    for (const y of full) {
+      if (!y.every((c, i) => c !== "B" || x[i] === "B")) continue; // x has every B that y has
+      assert.ok(rank[epilogue(x)] >= rank[epilogue(y)], `${x} vs ${y}`);
+      assert.ok(decide(x).leopard >= decide(y).leopard);
     }
   }
+});
+
+test("all three epilogues can be reached", () => {
+  const seen = new Set(allChoices().filter((c) => c.length === DECISION_COUNT).map((c) => epilogue(c)));
+  assert.deepEqual([...seen].sort(), ["bright", "faded", "middle"]);
 });
