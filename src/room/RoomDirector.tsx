@@ -1,0 +1,35 @@
+import { useFrame } from '@react-three/fiber'
+import { MathUtils } from 'three'
+import { REDUCED_MOTION } from '../config/quality'
+import type { RoomState } from './decisions'
+import { roomLive } from './roomLive'
+import { storyLive, storyTargets } from './storyLive'
+
+/** Higher = faster. 0.7 settles in about 4 s: slow enough to watch, never abrupt. */
+const SPEED = REDUCED_MOTION ? 2.5 : 0.7
+
+/** Eases the drawn state toward the target set by the visitor's choices and the story. */
+export function RoomDirector({ target }: { target: RoomState }) {
+  useFrame((_, delta) => {
+    const dt = Math.min(delta, 0.1)
+    roomLive.leopard = MathUtils.damp(roomLive.leopard, target.leopard, SPEED, dt)
+    roomLive.city = MathUtils.damp(roomLive.city, target.city, SPEED * 0.8, dt)
+    roomLive.ibex = MathUtils.damp(roomLive.ibex, target.ibex, SPEED * 0.9, dt)
+
+    storyLive.cub = MathUtils.damp(storyLive.cub, storyTargets.cub ? 1 : 0, SPEED * 0.6, dt)
+
+    if (storyTargets.epilogue) {
+      storyLive.epilogue = storyTargets.epilogue
+      storyLive.t += dt
+      storyLive.amount = MathUtils.damp(storyLive.amount, 1, SPEED, dt)
+    } else {
+      storyLive.amount = MathUtils.damp(storyLive.amount, 0, SPEED * 2, dt)
+      // Only reset once the epilogue image has faded away, so nothing snaps back.
+      if (storyLive.amount < 0.005) {
+        storyLive.t = 0
+        storyLive.epilogue = null
+      }
+    }
+  })
+  return null
+}

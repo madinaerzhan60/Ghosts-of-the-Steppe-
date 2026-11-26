@@ -18,14 +18,14 @@ export function Moonlight() {
 
   useFrame(({ camera }) => {
     const outside = MathUtils.smoothstep(camera.position.z, -2, 3)
-    if (moon.current) moon.current.intensity = MathUtils.lerp(0.12, 0.9, outside)
-    if (sky.current) sky.current.intensity = MathUtils.lerp(0.45, 0.6, outside)
+    if (moon.current) moon.current.intensity = MathUtils.lerp(0.2, 0.8, outside)
+    if (sky.current) sky.current.intensity = MathUtils.lerp(0.6, 0.5, outside)
   })
 
   return (
     <>
-      <hemisphereLight ref={sky} args={[palette.fog, palette.background, 0.6]} />
-      <directionalLight ref={moon} position={MOON_POS} color={palette.uki} intensity={0.9} />
+      <hemisphereLight ref={sky} args={[palette.ridgeFar, palette.background, 0.8]} />
+      <directionalLight ref={moon} position={MOON_POS} color={palette.moon} intensity={1.1} />
     </>
   )
 }

@@ -5,6 +5,8 @@ import { getStage, openingLive, stageAtLeast } from '../opening/openingStore'
 import { getWelcomePose } from '../opening/welcomeFraming'
 import { getWalkTarget, setWalkLimits } from '../walk/walkInput'
 import { getCameraPose, OPENING, OPENING_PAGES, openingFraction, TOTAL_PAGES } from './cameraPath'
+import { awake } from '../awaken/awakeStore'
+import { getClosePose } from '../awaken/closePose'
 import { CASES } from './layout'
 import { nearestCase } from './nearestCase'
 
@@ -12,12 +14,16 @@ const pos = new Vector3()
 const target = new Vector3()
 const closePos = new Vector3()
 const closeTarget = new Vector3()
+const caseClosePos = new Vector3()
+const caseCloseTarget = new Vector3()
 
 /** How quickly the camera catches up with the walk target (slow, dreamy, never abrupt). */
 const FOLLOW = 2.2
+/** How quickly the camera glides to a case being awakened, and back (about 1.5 s). */
+const GLIDE = 2.2
 
 export function CameraRig() {
-  const rig = useRef({ pages: 0, close: 0 })
+  const rig = useRef({ pages: 0, close: 0, awake: 0 })
 
   useFrame(({ camera }, rawDelta) => {
     const delta = Math.min(rawDelta, 0.1)
@@ -48,6 +54,18 @@ export function CameraRig() {
       target.lerp(closeTarget, k)
     }
 
+    // Awakening a case: glide close to its glass (and back again when the visitor leaves).
+    r.awake = MathUtils.damp(r.awake, awake.active ? 1 : 0, GLIDE, delta)
+    if (r.awake > 1e-3) {
+      const def = CASES.find((c) => c.id === awake.active) ?? CASES.find((c) => c.id === nearestCase.id)
+      if (def) {
+        getClosePose(def, caseClosePos, caseCloseTarget)
+        const k = MathUtils.smootherstep(r.awake, 0, 1)
+        pos.lerp(caseClosePos, k)
+        target.lerp(caseCloseTarget, k)
+      }
+    }
+
     camera.position.copy(pos)
     camera.lookAt(target)
 
@@ -59,6 +77,7 @@ export function CameraRig() {
         nearestCase.id = c.id
       }
     }
+    nearestCase.distance = Math.sqrt(best)
   })
 
   return null

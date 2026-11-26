@@ -1,7 +1,10 @@
 [
   {
     "id": "turan-tiger",
-    "name": { "en": "Turan tiger", "ru": "Туранский тигр" },
+    "name": {
+      "en": "Turan tiger",
+      "ru": "Туранский тигр"
+    },
     "state": "returning",
     "caseIndex": 0,
     "facts": [
@@ -36,6 +39,116 @@
         "ru": "WWF – возвращение тигра в Иле-Балхаш"
       },
       "url": "https://tigers.panda.org/copy_of_home_17042019_0337/our_work/tigerlandscapes_where_we_work/ili_balkhash"
+    },
+    "color": "#ff8a3d",
+    "wakeLine": {
+      "en": "TODO: the line the turan tiger says when it wakes"
+    }
+  },
+  {
+    "id": "cheetah",
+    "name": {
+      "en": "Cheetah"
+    },
+    "state": "forgotten",
+    "caseIndex": 1,
+    "facts": [],
+    "color": "#ff9e8a",
+    "wakeLine": {
+      "en": "TODO: the line the cheetah says when it wakes"
+    }
+  },
+  {
+    "id": "snow-leopard",
+    "name": {
+      "en": "Snow leopard",
+      "ru": "Снежный барс"
+    },
+    "state": "returning",
+    "caseIndex": 2,
+    "facts": [
+      {
+        "year": 1995,
+        "text": {
+          "en": "In 1995 there were only 80–100 snow leopards in Kazakhstan. Today there are about 190."
+        },
+        "source": "https://www.undp.org/kazakhstan/stories/achievements-kazakhstan-conservation-snow-leopard",
+        "moreSources": [
+          "https://24.kz/en/802010-snow-leopard-day-kazakhstan-monitors-around-190-snow-leopards"
+        ]
+      }
+    ],
+    "measures": [
+      {
+        "id": "protected-areas",
+        "text": {
+          "en": "Kazakhstan protected the mountains: about 70% of its snow leopards now live in protected areas."
+        },
+        "source": "https://www.undp.org/kazakhstan/stories/achievements-kazakhstan-conservation-snow-leopard"
+      },
+      {
+        "id": "cameras-collars",
+        "text": {
+          "en": "Near Almaty, more than 50 camera traps watch the trails, and rangers follow leopards with GPS collars."
+        },
+        "source": "https://24.kz/en/802010-snow-leopard-day-kazakhstan-monitors-around-190-snow-leopards"
+      },
+      {
+        "id": "corrals",
+        "text": {
+          "en": "Herders got strong pens. Where this was tried in the Himalayas, attacks dropped by up to 90%."
+        },
+        "source": "https://snowleopard.org/our-work/conservation-programs/predation-prevention/"
+      }
+    ],
+    "fund": {
+      "name": {
+        "en": "Snow Leopard Trust — Predation Prevention"
+      },
+      "url": "https://snowleopard.org/our-work/conservation-programs/predation-prevention/"
+    },
+    "color": "#9fe8ff",
+    "wakeLine": {
+      "en": "TODO: the line the snow leopard says when it wakes"
+    }
+  },
+  {
+    "id": "przewalski-horse",
+    "name": {
+      "en": "Przewalski's horse"
+    },
+    "state": "forgotten",
+    "caseIndex": 3,
+    "facts": [],
+    "color": "#c9b8ff",
+    "wakeLine": {
+      "en": "TODO: the line the przewalski's horse says when it wakes"
+    }
+  },
+  {
+    "id": "caspian-seal",
+    "name": {
+      "en": "Caspian seal"
+    },
+    "state": "forgotten",
+    "caseIndex": 4,
+    "facts": [],
+    "color": "#5ee6d0",
+    "wakeLine": {
+      "en": "TODO: the line the caspian seal says when it wakes"
+    }
+  },
+  {
+    "id": "saiga",
+    "name": {
+      "en": "Saiga"
+    },
+    "state": "forgotten",
+    "caseIndex": 5,
+    "facts": [],
+    "color": "#ffd166",
+    "wakeLine": {
+      "en": "TODO: the line the saiga says when it wakes"
     }
   }
 ]

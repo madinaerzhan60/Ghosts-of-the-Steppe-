@@ -1,4 +1,4 @@
-import { palette } from '../theme/palette'
+import { surfaces } from '../theme/surfaces'
 import { Floor } from './Floor'
 import { CORRIDOR, HALF_WIDTH } from './layout'
 import { Wall } from './Wall'
@@ -11,10 +11,10 @@ export function Corridor() {
     <group>
       <Floor />
 
-      {/* Ceiling: plain, almost invisible in the dark */}
+      {/* Ceiling: deep blue */}
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, height, midZ]}>
         <planeGeometry args={[width, length]} />
-        <meshStandardMaterial color={palette.background} roughness={1} />
+        <meshStandardMaterial color={surfaces.wall} emissive={surfaces.wall} emissiveIntensity={0.4} roughness={1} />
       </mesh>
 
       {/* Left wall (faces +x) */}

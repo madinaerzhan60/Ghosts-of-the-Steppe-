@@ -1,0 +1,129 @@
+{
+  "speaker": "Snow leopard",
+  "guide": "Üki",
+  "prologue": [
+    "I was born above the lights of Almaty.",
+    "My mother taught me every trail on this mountain.",
+    "Now I have a cub. This spring, I must teach him."
+  ],
+  "progress": "Season {n} of {total}",
+  "continue": "Continue",
+  "decisions": [
+    {
+      "season": "Spring",
+      "prompt": "The people want a road up the mountain.",
+      "choices": {
+        "A": {
+          "title": "Cut the road straight through the gorge"
+        },
+        "B": {
+          "title": "Build it around — with a tunnel for animals"
+        }
+      },
+      "reaction": {
+        "A": [
+          "The trucks come at night. The lights blind us.",
+          "My cub hid behind me. We lost the trail to the high meadows."
+        ],
+        "B": [
+          "They built a tunnel under the road for us.",
+          "My cub crossed it first. He wasn't afraid."
+        ]
+      }
+    },
+    {
+      "season": "Summer",
+      "prompt": "The people want snow for skiing.",
+      "choices": {
+        "A": {
+          "title": "Build the ski resort on her ridge"
+        },
+        "B": {
+          "title": "Keep her ridge wild"
+        }
+      },
+      "reaction": {
+        "A": [
+          "They took the ridge where my mother taught me to hunt.",
+          "There is nowhere to teach him now."
+        ],
+        "B": [
+          "They left our ridge alone.",
+          "Today my cub caught his first pika. He was so proud."
+        ]
+      }
+    },
+    {
+      "season": "Autumn",
+      "prompt": "Men came with guns. They want my fur.",
+      "choices": {
+        "A": {
+          "title": "No money for rangers this year"
+        },
+        "B": {
+          "title": "Send rangers and camera traps"
+        }
+      },
+      "reaction": {
+        "A": [
+          "No one was watching the trails.",
+          "I heard the shot. I ran with my cub until morning."
+        ],
+        "B": [
+          "Rangers walk the trails now. Cameras watch for us.",
+          "The men saw the cameras and went home."
+        ]
+      }
+    },
+    {
+      "season": "Winter",
+      "prompt": "I was hungry. I took a sheep from a herder.",
+      "choices": {
+        "A": {
+          "title": "Let the herder deal with it"
+        },
+        "B": {
+          "title": "Give him a strong pen and pay for the sheep"
+        }
+      },
+      "reaction": {
+        "A": [
+          "Now the herder is waiting for me with a gun.",
+          "I can't go down anymore. I can't feed my cub."
+        ],
+        "B": [
+          "The people gave him a strong pen and paid for the sheep.",
+          "He let me pass. Tonight, my cub and I ate."
+        ]
+      }
+    }
+  ],
+  "epilogue": {
+    "bright": [
+      "He is grown now. He walks the trails I taught him.",
+      "One day he will teach his own cub.",
+      "Thank you for letting us stay."
+    ],
+    "middle": [
+      "My cub left to find mountains without lights.",
+      "I hope he finds them.",
+      "I am still here. For now."
+    ],
+    "faded": [
+      "I am tired of hiding.",
+      "If you come here one day, look for our tracks in the snow.",
+      "That is all that's left."
+    ]
+  },
+  "bridge": "That was a story. But the choices are real — and people have already made them.",
+  "ending": {
+    "title": "What people really did",
+    "sourceLabel": "Source",
+    "choseB": "People chose B.",
+    "keepHere": "Keep her here",
+    "again": "Live her life again",
+    "backToHall": "Back to the hall",
+    "note": "A simplified story, not a scientific prediction."
+  },
+  "skip": "Skip"
+}

@@ -55,7 +55,7 @@ export function MoonClouds() {
     const dist = SKY.moonDistance - 2
     const position = SKY.moonDir.clone().multiplyScalar(dist)
     position.y -= SKY.moonRadius * DROP
-    const bg = new Color(palette.background)
+    const mid = new Color(palette.skyMid)
     return {
       position,
       quaternion: facingOrigin(position),
@@ -63,8 +63,8 @@ export function MoonClouds() {
         uTime: { value: 0 },
         uMoon: { value: [0.5, 0.5 + (SKY.moonRadius * DROP) / H] },
         uMoonR: { value: SKY.moonRadius / W },
-        uDark: { value: bg.clone().lerp(new Color(palette.fog), 0.12) },
-        uLit: { value: new Color(palette.fog).multiplyScalar(0.75) },
+        uDark: { value: mid.clone().lerp(new Color(palette.skyHorizon), 0.25) },
+        uLit: { value: new Color(palette.moon).multiplyScalar(0.8) },
       },
     }
   }, [])

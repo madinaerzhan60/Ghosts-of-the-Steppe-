@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Check animal sources and funds",
+  "description": "On save of animals.json, check that every fact has a non-empty https source URL and every animal has a fund URL.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["src/content/animals.json"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "src/content/animals.json was saved. Read it and check two things. 1) Every entry in every animal's facts has a non-empty source that starts with https://. 2) Every animal has fund.url that is a non-empty https URL. Do not edit the file and do not invent URLs. Report each problem as `animal id / fact year: what is missing`, or say that everything passes."
+  }
+}

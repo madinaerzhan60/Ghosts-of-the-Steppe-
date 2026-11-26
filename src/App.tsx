@@ -1,6 +1,10 @@
 import { PerformanceMonitor } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { AwakePanel } from './awaken/AwakePanel'
+import { leaveAwake } from './awaken/awakeStore'
+import { useAwakeSnapshot } from './awaken/useAwake'
+import { WakeButton } from './awaken/WakeButton'
 import { enableSound } from './audio/ambience'
 import { LIGHT_MODE } from './config/quality'
 import { DevPerf } from './dev/DevPerf'
@@ -17,7 +21,8 @@ import { WalkHint } from './ui/WalkHint'
 import { OpeningAnnouncer } from './ui/OpeningAnnouncer'
 import { SoundButton } from './ui/SoundButton'
 import { Subtitles } from './ui/Subtitles'
-import { attachWalkInput, setWalkStops } from './walk/walkInput'
+import { DecisionRoom } from './room/DecisionRoom'
+import { attachWalkInput, setWalkLocked, setWalkStops } from './walk/walkInput'
 
 /** Device pixel ratio is capped here (Retina screens would otherwise render 4x the pixels). */
 const MAX_DPR = 1.5
@@ -32,6 +37,14 @@ export default function App() {
   const welcome = useWelcomeDialogue()
   const { speak } = voice
   const greeted = useRef(new Set<GuideSpot>())
+  const awakening = useAwakeSnapshot()
+  /** The snow leopard's decision room, opened from her awakened case. */
+  const [roomOpen, setRoomOpen] = useState(false)
+
+  // While a case wakes (or the room is open) the visitor cannot walk.
+  useEffect(() => {
+    setWalkLocked(awakening.active !== null || roomOpen)
+  }, [awakening.active, roomOpen])
 
   // Wheel / trackpad, touch, arrow keys -> walking (and "next line" during the welcome).
   useEffect(() => attachWalkInput(), [])
@@ -66,6 +79,7 @@ export default function App() {
         flat
         shadows={false}
         dpr={dpr}
+        frameloop={roomOpen ? 'never' : 'always'}
         camera={{ position: [0, 1.2, 22], fov: 60, near: 0.1, far: 60 }}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
       >
@@ -84,15 +98,29 @@ export default function App() {
         <Effects />
         <DevPerf />
       </Canvas>
-      <Subtitles
-        text={welcome.text ?? voice.subtitle}
-        revealAll={welcome.revealAll}
-        awaitInput={welcome.active}
-      />
-      <OpeningAnnouncer />
-      <WalkHint />
-      <NextButton />
-      <SoundButton />
+      {/* The hall's own interface is hidden (and unreachable) while the decision room is open. */}
+      <div style={{ visibility: roomOpen ? 'hidden' : 'visible' }}>
+        <Subtitles
+          text={awakening.active ? (awakening.line?.text ?? null) : (welcome.text ?? voice.subtitle)}
+          color={awakening.line?.color}
+          revealAll={welcome.revealAll}
+          awaitInput={welcome.active}
+        />
+        <OpeningAnnouncer />
+        <WalkHint />
+        <NextButton />
+        <SoundButton />
+        <WakeButton />
+        {awakening.active && awakening.panel && !roomOpen && (
+          <AwakePanel
+            key={awakening.active}
+            caseId={awakening.active}
+            onBack={leaveAwake}
+            onEnterRoom={() => setRoomOpen(true)}
+          />
+        )}
+      </div>
+      {roomOpen && <DecisionRoom onExit={() => setRoomOpen(false)} />}
     </>
   )
 }

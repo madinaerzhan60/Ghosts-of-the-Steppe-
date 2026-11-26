@@ -12,13 +12,15 @@ type Props = {
   revealAll?: boolean
   /** The line waits for the visitor: show a soft "continue" mark once it is typed. */
   awaitInput?: boolean
+  /** The speaker's own color (an awakened animal); default is Üki's ice-blue. */
+  color?: string
 }
 
 /**
  * Ice-blue subtitles at the bottom of the screen, typed letter by letter like a
  * whisper; fade out slowly. Always on. Screen readers get the whole line at once.
  */
-export function Subtitles({ text, revealAll = false, awaitInput = false }: Props) {
+export function Subtitles({ text, revealAll = false, awaitInput = false, color }: Props) {
   // Keep the last line in the DOM while it fades out.
   const [shown, setShown] = useState(text)
   const [typed, setTyped] = useState(0)
@@ -62,7 +64,12 @@ export function Subtitles({ text, revealAll = false, awaitInput = false }: Props
       <p className="visually-hidden" role="status" aria-live="polite">
         {text ? (awaitInput ? `${text} (${opening.continue[LANG]})` : text) : ''}
       </p>
-      <p ref={line} className={text ? 'subtitles__line is-visible' : 'subtitles__line'} aria-hidden="true">
+      <p
+        ref={line}
+        className={text ? 'subtitles__line is-visible' : 'subtitles__line'}
+        style={color ? { color } : undefined}
+        aria-hidden="true"
+      >
         {letters.map((ch, i) => (
           <span key={i} className={i < visible ? 'subtitles__ch is-on' : 'subtitles__ch'}>
             {ch}

@@ -4,7 +4,7 @@ body,
   margin: 0;
   width: 100%;
   height: 100%;
-  background: #070a0d; /* keep in sync with src/theme/palette.ts */
+  background: #0f1136; /* keep in sync with src/theme/palette.ts */
   overflow: hidden;
 }
 

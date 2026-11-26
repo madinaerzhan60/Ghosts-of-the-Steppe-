@@ -27,7 +27,14 @@ function emitIntent() {
   intentListeners.forEach((l) => l())
 }
 
+/** While locked (an awakening is playing), the visitor cannot walk. */
+let locked = false
+export function setWalkLocked(value: boolean) {
+  locked = value
+}
+
 function setTarget(value: number) {
+  if (locked) return
   state.target = Math.min(state.max, Math.max(state.min, value))
   if (!state.started && state.target > 0.02) {
     state.started = true

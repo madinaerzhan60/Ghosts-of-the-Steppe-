@@ -39,3 +39,15 @@ export const GROUND_FOG_LAYERS = LIGHT_MODE ? 2 : 3
 export const FIREFLIES = LIGHT_MODE ? 50 : 140
 /** Title particles (a ghost-like effect, so within MAX_POINTS_PER_GHOST). */
 export const TITLE_POINTS = LIGHT_MODE ? 3_000 : 6_000
+
+// Decision room (snow leopard on the night slope)
+/** The snow leopard ghost (within MAX_POINTS_PER_GHOST). */
+export const LEOPARD_POINTS = GHOST_POINTS
+export const CITY_LIGHTS = LIGHT_MODE ? 380 : 800
+export const IBEX_COUNT = 14
+export const IBEX_POINTS_EACH = LIGHT_MODE ? 5 : 9
+
+// Awakening in the hall: every awake animal is a particle ghost (within MAX_POINTS_PER_GHOST).
+export const HALL_GHOST_POINTS = LIGHT_MODE ? 3_000 : 9_000
+/** Crack lines on the glass: fewer branches in light mode. */
+export const CRACK_BRANCHES = LIGHT_MODE ? 4 : 7

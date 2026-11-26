@@ -16,11 +16,11 @@ const vertexShader = /* glsl */ `
   void main() {
     vec4 mv = modelViewMatrix * vec4(position, 1.0);
     gl_Position = projectionMatrix * mv;
-    gl_PointSize = clamp(aSize * uScale, 1.0, 6.0);
+    gl_PointSize = clamp(aSize * uScale * 1.25, 1.2, 7.0);
     float tw = 0.65 + 0.35 * sin(uTime * (0.6 + aPhase * 0.3) + aPhase * 6.2831);
     // Fainter near the horizon, where the haze is.
     float h = clamp(position.y / ${RADIUS.toFixed(1)}, 0.0, 1.0);
-    vAlpha = clamp(tw * smoothstep(0.02, 0.35, h) * 0.85, 0.0, 1.0);
+    vAlpha = clamp(tw * smoothstep(0.03, 0.3, h) * 1.15, 0.0, 1.0);
   }
 `
 
@@ -31,7 +31,7 @@ const fragmentShader = /* glsl */ `
     float d = length(gl_PointCoord - vec2(0.5));
     float a = clamp((1.0 - smoothstep(0.0, 0.5, d)) * vAlpha, 0.0, 1.0);
     if (a < 0.003) discard;
-    gl_FragColor = vec4(clamp(uColor, 0.0, 1.0), a);
+    gl_FragColor = vec4(clamp(uColor * 1.15, 0.0, 1.0), a);
   }
 `
 
