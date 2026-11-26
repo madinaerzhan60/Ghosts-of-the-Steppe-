@@ -1,5 +1,6 @@
 import { LANG } from '../content/lang'
 import opening from '../content/opening.json' with { type: 'json' }
+import { useAwakeSnapshot } from '../awaken/useAwake'
 import { useStage, type Stage } from '../opening/openingStore'
 import { walkNext } from '../walk/walkInput'
 import './nextButton.css'
@@ -13,7 +14,8 @@ const WAITING: readonly Stage[] = ['arrive', 'fly', 'open']
  */
 export function NextButton() {
   const stage = useStage()
-  const hidden = WAITING.includes(stage)
+  const { active } = useAwakeSnapshot()
+  const hidden = WAITING.includes(stage) || active !== null
 
   return (
     <button

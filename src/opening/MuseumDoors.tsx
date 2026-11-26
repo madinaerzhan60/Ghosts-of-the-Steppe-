@@ -9,7 +9,9 @@ import { getStage, openingLive, stageAtLeast } from './openingStore'
 
 const OPEN_ANGLE = 1.5 // ~86°, swung into the hall
 const DURATION = 4.8 // seconds: slow, by themselves
-const LEAF_W = DOOR.width / 2
+/** The doors stand slightly ajar: a thin gap in the middle where warm light shows. */
+const AJAR_GAP = 0.07
+const LEAF_W = DOOR.width / 2 - AJAR_GAP / 2
 const LEAF_D = 0.08
 /** Gap under the leaves: lets the warm line of light show beneath the doors. */
 const SILL_GAP = 0.04
@@ -22,9 +24,9 @@ export function MuseumDoors() {
 
   const leaves = useMemo(
     () => ({
-      // Leaves overlap a hair in the middle: no bright seam of hall light between them.
-      left: doorLeaf(LEAF_W + 0.004, DOOR.height - SILL_GAP - 0.01, 1),
-      right: doorLeaf(LEAF_W + 0.004, DOOR.height - SILL_GAP - 0.01, -1),
+      // Each leaf is a little narrower than half the opening: the gap shows the warm light inside.
+      left: doorLeaf(LEAF_W, DOOR.height - SILL_GAP - 0.01, 1),
+      right: doorLeaf(LEAF_W, DOOR.height - SILL_GAP - 0.01, -1),
     }),
     [],
   )

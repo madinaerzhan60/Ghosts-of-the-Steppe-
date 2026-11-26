@@ -1,4 +1,6 @@
 import { Color } from 'three'
+import { AwakeDirector } from '../awaken/AwakeDirector'
+import { wakeCase } from '../awaken/wake'
 import type { GuideSpot } from '../guide/guideSpots'
 import { UkiGuide } from '../guide/UkiGuide'
 import { AtmosphereByPlace } from '../opening/AtmosphereByPlace'
@@ -16,11 +18,6 @@ import './models' // starts preloading the GLB files
 // Fog is the shadow blue tinted toward the teal fog, so the far end dissolves
 // into a soft blue-teal haze instead of black.
 const fogColor = new Color(palette.background).lerp(new Color(palette.fog), 0.16)
-
-function logCase(id: string) {
-  // Awakening effect comes later.
-  console.log(id)
-}
 
 type Props = {
   ukiSpeaking: boolean
@@ -43,11 +40,12 @@ export function MuseumScene({ ukiSpeaking, ukiAudio, onUkiArrive, ukiWingsOpen, 
 
       <group>
         <CameraRig />
+        <AwakeDirector />
         <OpeningWorld />
         <Corridor />
         <DoorwayLight />
         {CASES.map((def) => (
-          <DisplayCase key={def.id} def={def} onSelect={logCase} />
+          <DisplayCase key={def.id} def={def} onSelect={wakeCase} />
         ))}
         {/* Üki first appears above the museum doors, once the visitor reaches them. */}
         {stageAtLeast(stage, 'arrive') && (

@@ -40,7 +40,10 @@
       },
       "url": "https://tigers.panda.org/copy_of_home_17042019_0337/our_work/tigerlandscapes_where_we_work/ili_balkhash"
     },
-    "color": "#ff8a3d"
+    "color": "#ff8a3d",
+    "wakeLine": {
+      "en": "TODO: the line the turan tiger says when it wakes"
+    }
   },
   {
     "id": "cheetah",
@@ -50,7 +53,10 @@
     "state": "forgotten",
     "caseIndex": 1,
     "facts": [],
-    "color": "#ff9e8a"
+    "color": "#ff9e8a",
+    "wakeLine": {
+      "en": "TODO: the line the cheetah says when it wakes"
+    }
   },
   {
     "id": "snow-leopard",
@@ -101,7 +107,10 @@
       },
       "url": "https://snowleopard.org/our-work/conservation-programs/predation-prevention/"
     },
-    "color": "#9fe8ff"
+    "color": "#9fe8ff",
+    "wakeLine": {
+      "en": "TODO: the line the snow leopard says when it wakes"
+    }
   },
   {
     "id": "przewalski-horse",
@@ -111,7 +120,10 @@
     "state": "forgotten",
     "caseIndex": 3,
     "facts": [],
-    "color": "#c9b8ff"
+    "color": "#c9b8ff",
+    "wakeLine": {
+      "en": "TODO: the line the przewalski's horse says when it wakes"
+    }
   },
   {
     "id": "caspian-seal",
@@ -121,7 +133,10 @@
     "state": "forgotten",
     "caseIndex": 4,
     "facts": [],
-    "color": "#5ee6d0"
+    "color": "#5ee6d0",
+    "wakeLine": {
+      "en": "TODO: the line the caspian seal says when it wakes"
+    }
   },
   {
     "id": "saiga",
@@ -131,6 +146,9 @@
     "state": "forgotten",
     "caseIndex": 5,
     "facts": [],
-    "color": "#ffd166"
+    "color": "#ffd166",
+    "wakeLine": {
+      "en": "TODO: the line the saiga says when it wakes"
+    }
   }
 ]

@@ -22,3 +22,15 @@ export function loadMeasures(animalId: string, includeTodo = false): Measure[] {
   const all = animal?.measures ?? [];
   return includeTodo ? all : all.filter((m) => hasSource(m.source));
 }
+
+const isTodo = (text: string) => text.trim().toUpperCase().startsWith("TODO");
+
+/**
+ * The line an animal says when it wakes. Lines that are still TODO are never shown
+ * to visitors; `includeTodo` (dev builds) shows them so the moment can be checked.
+ */
+export function loadWakeLine(animalId: string, includeTodo = false): string | null {
+  const text = (animalsData as Animal[]).find((a) => a.id === animalId)?.wakeLine?.en?.trim();
+  if (!text) return null;
+  return isTodo(text) && !includeTodo ? null : text;
+}

@@ -1,0 +1,165 @@
+/* The awakening's UI. Colors come from the shared palette variables; --animal is set per animal. */
+
+.wake-button {
+  position: fixed;
+  left: 50%;
+  bottom: max(11vh, 76px);
+  transform: translateX(-50%);
+  z-index: 20;
+  min-height: 44px;
+  padding: 0 20px;
+  font-family: 'PT Mono', ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--color-fog);
+  background: color-mix(in srgb, var(--color-background) 65%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-fog) 45%, transparent);
+  border-radius: 22px;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity 0.8s ease, border-color 0.8s ease;
+  animation: awake-fade-in 1.2s ease both;
+}
+
+.wake-button:hover,
+.wake-button:focus-visible {
+  opacity: 1;
+  border-color: var(--color-uki);
+}
+
+.wake-button:focus-visible {
+  outline: 2px solid var(--color-uki);
+  outline-offset: 3px;
+}
+
+.awake-panel {
+  position: fixed;
+  right: max(3vw, 16px);
+  bottom: max(16vh, 120px);
+  z-index: 30;
+  width: min(26rem, calc(100vw - 32px));
+  max-height: 60vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 20px 22px;
+  font-family: 'Golos Text', system-ui, sans-serif;
+  color: var(--color-lamp);
+  background: color-mix(in srgb, var(--color-background) 78%, transparent);
+  border: 1px solid color-mix(in srgb, var(--animal) 55%, transparent);
+  border-radius: 14px;
+  box-shadow: 0 0 28px color-mix(in srgb, var(--animal) 28%, transparent);
+  backdrop-filter: blur(6px);
+  animation: awake-fade-in 1.6s ease both;
+}
+
+.awake-panel__title {
+  margin: 0 0 12px;
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 34px);
+  color: var(--animal);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--animal) 45%, transparent);
+}
+
+.awake-panel__facts {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.awake-panel__facts li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.awake-panel__sources {
+  display: flex;
+  gap: 12px;
+}
+
+.awake-panel__sources a {
+  font-family: 'PT Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--color-uki);
+  text-underline-offset: 3px;
+}
+
+.awake-panel__todo {
+  font-family: 'PT Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--color-fog);
+}
+
+.awake-panel__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.awake-button {
+  min-height: 44px;
+  padding: 0 20px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--color-fog);
+  background: color-mix(in srgb, var(--color-background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-fog) 45%, transparent);
+  border-radius: 22px;
+  cursor: pointer;
+  transition: box-shadow 0.8s ease, border-color 0.8s ease;
+}
+
+.awake-button--primary {
+  color: var(--color-lamp);
+  border-color: var(--animal);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--animal) 35%, transparent);
+}
+
+.awake-button:hover,
+.awake-button:focus-visible {
+  border-color: var(--animal);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--animal) 45%, transparent);
+}
+
+.awake-button:focus-visible {
+  outline: 2px solid var(--color-uki);
+  outline-offset: 3px;
+}
+
+.awake-panel__note {
+  min-height: 1.2em;
+  margin: 10px 0 0;
+  font-family: 'PT Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--color-fog);
+}
+
+@keyframes awake-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .awake-panel {
+    right: 16px;
+    left: 16px;
+    width: auto;
+    bottom: max(14vh, 100px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wake-button,
+  .awake-panel {
+    animation-duration: 0.01s;
+  }
+}

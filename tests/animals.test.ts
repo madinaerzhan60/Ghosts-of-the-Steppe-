@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import rawData from "../src/content/animals.json" with { type: "json" };
-import { loadAnimals, loadMeasures } from "../src/content/loadAnimals.ts";
+import { loadAnimals, loadMeasures, loadWakeLine } from "../src/content/loadAnimals.ts";
 import type { Animal } from "../src/content/types.ts";
 
 const isHttpUrl = (value: unknown): boolean => {
@@ -76,4 +76,17 @@ test("every animal has its own glow color, and no two animals share one", () => 
 test("the six hall animals are all there, in case order", () => {
   const ids = [...raw].sort((a, b) => a.caseIndex - b.caseIndex).map((a) => a.id);
   assert.deepEqual(ids, ["turan-tiger", "cheetah", "snow-leopard", "przewalski-horse", "caspian-seal", "saiga"]);
+});
+
+test("every animal has a wakeLine in English; TODO lines are hidden from visitors", () => {
+  for (const animal of raw) {
+    assert.ok(animal.wakeLine?.en?.trim(), `${animal.id}: missing wakeLine`);
+    const shown = loadWakeLine(animal.id);
+    if (animal.wakeLine.en.trim().toUpperCase().startsWith("TODO")) {
+      assert.equal(shown, null, `${animal.id}: a TODO line leaked`);
+      assert.equal(loadWakeLine(animal.id, true), animal.wakeLine.en.trim());
+    } else {
+      assert.equal(shown, animal.wakeLine.en.trim());
+    }
+  }
 });

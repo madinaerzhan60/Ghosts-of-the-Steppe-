@@ -27,7 +27,7 @@ const BRIDGE_MS = 7000
 const lineBeatMs = (count: number) => (count - 1) * LINE_STEP_SECONDS * 1000
 
 /** The snow leopard's story: a prologue, four seasons of decisions, an epilogue, and what people really did. */
-export function DecisionRoom() {
+export function DecisionRoom({ onExit }: { /** Opened from the hall: lets the visitor go back to it. */ onExit?: () => void }) {
   const [flow, dispatch] = useReducer(flowReducer, INITIAL_FLOW)
   /** True once the epilogue's lines have faded: the final image is held in silence. */
   const [silent, setSilent] = useState(false)
@@ -136,6 +136,7 @@ export function DecisionRoom() {
         )}
 
         {flow.phase === 'ending' && <Ending
+            onBack={onExit}
             onAgain={() => {
               setSilent(false)
               dispatch({ type: 'restart' })

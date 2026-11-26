@@ -6,7 +6,7 @@ import { palette } from '../theme/palette'
 import { seededRandom } from '../utils/random'
 import { GROUND_Y } from './openingLayout'
 
-// Warm ember sparks drifting slowly over the steppe, glowing in and out softly.
+// Tiny warm fireflies drifting low over the steppe, glowing in and out softly.
 const AREA = { x: 11, z0: 2.5, z1: 24 }
 
 const vertexShader = /* glsl */ `
@@ -58,7 +58,7 @@ export function Fireflies() {
       // More of them near the path, where the visitor walks.
       const side = rand() < 0.5 ? -1 : 1
       position[i * 3] = side * (0.6 + Math.pow(rand(), 1.6) * AREA.x)
-      position[i * 3 + 1] = GROUND_Y + 0.25 + rand() * 1.9
+      position[i * 3 + 1] = GROUND_Y + 0.15 + Math.pow(rand(), 1.5) * 1.3
       position[i * 3 + 2] = AREA.z0 + rand() * (AREA.z1 - AREA.z0)
       seed[i * 4] = rand()
       seed[i * 4 + 1] = (REDUCED_MOTION ? 0.15 : 0.35) + rand() * 0.35
@@ -69,7 +69,7 @@ export function Fireflies() {
   }, [])
 
   const uniforms = useMemo(
-    () => ({ uTime: { value: 0 }, uScale: { value: 400 }, uColor: { value: new Color(palette.ghost) } }),
+    () => ({ uTime: { value: 0 }, uScale: { value: 400 }, uColor: { value: new Color(palette.lanternGlass) } }),
     [],
   )
 

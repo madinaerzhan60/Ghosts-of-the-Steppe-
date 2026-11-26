@@ -27,6 +27,8 @@ const vertexShader = /* glsl */ `
   attribute float aHeight;
   attribute float aYaw;
   attribute float aPhase;
+  attribute float aTint;   // 0..1: which of the three grass colours
+  attribute vec2 aLean;    // resting lean of the blade (x, z)
   uniform float uTime;
   uniform float uWind;
   uniform float uGround;
@@ -36,6 +38,7 @@ const vertexShader = /* glsl */ `
   varying float vDepth;
   varying float vShade;
   varying float vWarm;
+  varying float vTint;
 
   void main() {
     float t = clamp(position.y, 0.0, 1.0);          // 0 root .. 1 tip
@@ -43,9 +46,11 @@ const vertexShader = /* glsl */ `
     float c = cos(aYaw);
     float s = sin(aYaw);
     p.xz = vec2(c * p.x - s * p.z, s * p.x + c * p.z);
+    p.xz += aLean * t * t;                           // each blade leans its own way
 
     // Wind: a slow travelling wave across the steppe plus a small per-blade flutter.
-    float wave = sin(uTime * 0.9 + aOffset.x * 0.18 + aOffset.y * 0.11);
+    float wave = sin(uTime * 0.9 + aOffset.x * 0.18 + aOffset.y * 0.11)
+               + 0.5 * sin(uTime * 0.55 - aOffset.y * 0.32 + aOffset.x * 0.05); // waves rolling across the field
     float gust = 0.5 + 0.5 * sin(uTime * 0.23 + aOffset.y * 0.05);
     float flutter = 0.25 * sin(uTime * 2.6 + aPhase);
     float bend = uWind * (0.35 + 0.65 * gust) * (wave + flutter) * t * t * aHeight;
@@ -59,6 +64,7 @@ const vertexShader = /* glsl */ `
     vT = t;
     vDepth = max(-mv.z, 0.0);
     vShade = 0.75 + 0.25 * sin(aPhase * 3.0);
+    vTint = aTint;
 
     // Warm lantern light on nearby blades (soft falloff, no real light needed).
     float warm = 0.0;
@@ -71,16 +77,25 @@ const vertexShader = /* glsl */ `
 `
 
 const fragmentShader = /* glsl */ `
-  uniform vec3 uRoot;
-  uniform vec3 uTip;
+  uniform vec3 uTeal;
+  uniform vec3 uSage;
+  uniform vec3 uViolet;
+  uniform vec3 uMoon;
   uniform vec3 uAmber;
   ${fogGlsl}
   varying float vT;
   varying float vDepth;
   varying float vShade;
   varying float vWarm;
+  varying float vTint;
   void main() {
-    vec3 col = mix(uRoot, uTip, clamp(vT, 0.0, 1.0)) * clamp(vShade, 0.0, 1.0);
+    float t = clamp(vT, 0.0, 1.0);
+    // Teal, sage and violet blades mixed through the field.
+    vec3 base = vTint < 0.4 ? uTeal : (vTint < 0.75 ? uSage : uViolet);
+    base = mix(base, mix(uTeal, uViolet, vTint), 0.25);
+    // Dark at the root, full colour above, pale moonlit tips.
+    vec3 col = base * mix(0.28, 1.0, t) * clamp(vShade, 0.0, 1.0);
+    col = mix(col, uMoon, 0.38 * t * t * t);
     col += uAmber * clamp(vWarm, 0.0, 1.5) * 0.28;
     gl_FragColor = vec4(clamp(applyFog(col, vDepth), 0.0, 1.0), 1.0);
   }
@@ -92,7 +107,7 @@ function keepClear(x: number, z: number) {
   return false
 }
 
-/** Dark steppe grass: instanced blades swaying in the wind, all on the GPU. */
+/** Steppe grass in teal, sage and violet: instanced blades swaying in the wind, all on the GPU. */
 export function Grass() {
   const material = useRef<ShaderMaterial>(null)
 
@@ -112,6 +127,8 @@ export function Grass() {
     const height = new Float32Array(n)
     const yaw = new Float32Array(n)
     const phase = new Float32Array(n)
+    const tint = new Float32Array(n)
+    const lean = new Float32Array(n * 2)
     let i = 0
     while (i < n) {
       const x = AREA.x0 + (AREA.x1 - AREA.x0) * rand()
@@ -122,7 +139,12 @@ export function Grass() {
       if (rand() > 0.35 + 0.65 * nearPath) continue
       offset[i * 2] = x
       offset[i * 2 + 1] = z
-      height[i] = (0.22 + 0.4 * rand()) * (0.55 + 0.45 * nearPath)
+      // Mostly short blades, some tall tufts.
+      const r = rand()
+      height[i] = (0.16 + 0.3 * r + 0.5 * r * r * r) * (0.55 + 0.45 * nearPath)
+      tint[i] = rand()
+      lean[i * 2] = (rand() - 0.5) * 0.28
+      lean[i * 2 + 1] = (rand() - 0.5) * 0.2
       yaw[i] = rand() * Math.PI
       phase[i] = rand() * Math.PI * 2
       i++
@@ -131,21 +153,22 @@ export function Grass() {
     g.setAttribute('aHeight', new InstancedBufferAttribute(height, 1))
     g.setAttribute('aYaw', new InstancedBufferAttribute(yaw, 1))
     g.setAttribute('aPhase', new InstancedBufferAttribute(phase, 1))
+    g.setAttribute('aTint', new InstancedBufferAttribute(tint, 1))
+    g.setAttribute('aLean', new InstancedBufferAttribute(lean, 2))
     g.instanceCount = n
     return g
   }, [])
 
   const uniforms = useMemo(() => {
-    const root = new Color(palette.ridgeNear)
-    const tipColor = new Color(palette.fog)
     return {
       uTime: { value: 0 },
       uWind: { value: REDUCED_MOTION ? 0.08 : 0.22 },
       uGround: { value: GROUND_Y },
       uWidth: { value: 0.045 },
-      // Grass colours: deep blue roots, teal-blue tips (palette tones only).
-      uRoot: { value: root.clone().lerp(new Color(palette.background), 0.3) },
-      uTip: { value: root.clone().lerp(tipColor, 0.3) },
+      uTeal: { value: new Color(palette.grassTeal) },
+      uSage: { value: new Color(palette.grassSage) },
+      uViolet: { value: new Color(palette.grassViolet) },
+      uMoon: { value: new Color(palette.moon) },
       uAmber: { value: new Color(palette.ghost) },
       uLanterns: {
         value: LANTERNS.map(([x, z]) => new Vector4(x, GROUND_Y + LANTERN_HEIGHT + 0.1, z, 1)),

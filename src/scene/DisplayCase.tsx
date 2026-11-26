@@ -1,7 +1,7 @@
 import { Suspense, useCallback, useMemo, useState } from 'react'
 import { LIGHT_MODE } from '../config/quality'
 import { surfaces } from '../theme/surfaces'
-import { AnimalStatue } from './AnimalStatue'
+import { CaseAnimal } from './CaseAnimal'
 import { CaseFloorGlow } from './CaseFloorGlow'
 import { CaseGlass } from './CaseGlass'
 import { CaseLamp } from './CaseLamp'
@@ -105,8 +105,10 @@ export function DisplayCase({ def, onSelect }: Props) {
         <group position={[0, PEDESTAL_H + 0.005, 0]}>
           <ModelErrorBoundary url={MODELS[def.model].url}>
             <Suspense fallback={null}>
-              <AnimalStatue
+              <CaseAnimal
                 model={def.model}
+                caseId={def.id}
+                animal={def.animal}
                 fill={fill}
                 viewAxis={axis}
                 maxHeight={STATUE_MAX_H}
@@ -118,7 +120,13 @@ export function DisplayCase({ def, onSelect }: Props) {
           </ModelErrorBoundary>
         </group>
 
-        <CaseGlass position={[0, PEDESTAL_H + glass.h / 2, 0]} width={glass.w} height={glass.h} />
+        <CaseGlass
+          caseId={def.id}
+          animal={def.animal}
+          position={[0, PEDESTAL_H + glass.h / 2, 0]}
+          width={glass.w}
+          height={glass.h}
+        />
       </group>
 
       <CaseFloorGlow def={def} />

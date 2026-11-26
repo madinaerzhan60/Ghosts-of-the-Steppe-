@@ -35,6 +35,8 @@ export interface Animal {
   caseIndex: number;
   /** The animal's own glow color (#rrggbb): ghost particles, subtitles, plaque, floor light. */
   color: string;
+  /** The one line the animal says when it wakes. "TODO..." = not written yet (shown only in dev builds). */
+  wakeLine: LocalizedText;
   facts: Fact[];
   /** Optional until a fund is chosen for the animal. */
   fund?: Fund;

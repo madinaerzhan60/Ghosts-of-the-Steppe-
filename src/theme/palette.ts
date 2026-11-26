@@ -17,4 +17,12 @@ export const palette = {
   ghost: '#f0b968', // Üki's amber eyes, lanterns and other warm accents
   stone: '#6f82b3', // statues (forgotten), blue slate
   lamp: '#ffe6c2', // warm-white ceiling spots
+  // Outdoor object colors (requested explicitly for the museum, lanterns and grass).
+  museumStone: '#5a6a9a', // museum facade, columns and steps: pale blue-grey stone
+  doorGlow: '#ffb866', // warm light spilling from the door gap and window
+  bronze: '#3b3550', // lantern posts and frames: dark bronze
+  lanternGlass: '#ffc777', // lantern glass and the pools of light under it
+  grassTeal: '#3f8f8f',
+  grassSage: '#6d8f9c',
+  grassViolet: '#6a5a9e',
 } as const
